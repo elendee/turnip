@@ -3,159 +3,18 @@ import fetch_wrap from './fetch_wrap.js?v=1'
 import * as lib from './lib.js?v=1'
 import hal from './hal.js?v=1'
 import env from './env.js?v=1'
+import nav from './nav.js?v=1'
 
-const nav_items = document.querySelectorAll('.nav-item')
-const nav_menu = document.querySelector('#nav-menu')
-const nav_toggle = document.querySelector('#nav-toggle')
 const admin = document.querySelector('#admin')
 const create = document.querySelector('#create')
 const add_team = document.querySelector('#add-team .button')
 const add_player = document.querySelector('#add-player .button')
+const deletes = document.querySelectorAll('.delete')
 
-for( const item of nav_items ){
-	item.addEventListener('click', e => {
-		e.preventDefault()
-		let email, password, submit, br, modal
-		switch( item.innerText ){
+nav()
 
-			case 'login':	
-				modal = new Modal({
-					type: 'login',
-				})
-				email = document.createElement('input')
-				email.placeholder = 'email'
-				email.type = 'email'
-				password = document.createElement('input')
-				password.placeholder = 'password'
-				password.type = 'password'
-				br = document.createElement('br')
-				submit = document.createElement('input')
-				submit.classList.add('button')
-				submit.type = 'submit'
-				submit.value = 'login'
-				submit.addEventListener('click', () => {
-					const e = email.value.trim()
-					const p = password.value.trim()
-					if( !e || !p ){
-						hal('error', 'missing values', 2000 )
-						return
-					}
-					fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/login.php', 'post', {
-						email: e,
-						password: p,
-					})
-					.then( res => {
-						if( res.success ){
-							location.reload()
-						}else{
-							hal('error', res.msg || 'error logging in', 5000 )
-							console.log( res )
-						}
-					})
-					.catch( err => {
-						hal('error', err.msg || 'error logging in', 5000 )
-						console.log( err )
-					})
-				})
-				lib.add_submit( email, submit )
-				lib.add_submit( password, submit )
-				modal.content.appendChild( email )
-				modal.content.appendChild( password )
-				modal.content.appendChild( br )
-				modal.content.appendChild( submit )
-				document.body.appendChild( modal.ele )
-				break;
-
-			case 'register':
-				modal = new Modal({
-					type: 'register',
-				})
-				email = document.createElement('input')
-				email.placeholder = 'email'
-				email.type = 'email'
-				password = document.createElement('input')
-				password.placeholder = 'password'
-				password.type = 'password'
-				const password_confirm = document.createElement('input')
-				password_confirm.placeholder = 'password confirm'
-				password_confirm.type = 'password'
-				br = document.createElement('br')
-				submit = document.createElement('input')
-				submit.classList.add('button')
-				submit.type = 'submit'
-				submit.value = 'register'
-				submit.addEventListener('click', () => {
-					const e = email.value.trim()
-					const p = password.value.trim()
-					const pc = password.value.trim()
-					if( !p || p !== pc ){
-						hal('error', 'password mismatch', 3000 )
-						return
-					}
-					fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/register.php', 'post', {
-						email: e,
-						password: p,
-						name: '',
-					})
-					.then( res => {
-						if( res.success ){
-							location.reload()
-						}else{
-							hal('error', res.msg || 'error registering', 5000 )
-							console.log( res )
-						}
-					})
-					.catch( err => {
-						hal('error', err.msg || 'error registering', 5000 )
-						console.log( err )
-					})
-				})
-				lib.add_submit( email, submit )
-				lib.add_submit( password, submit )
-				lib.add_submit( password_confirm, submit )
-				modal.content.appendChild( email )
-				modal.content.appendChild( password )
-				modal.content.appendChild( password_confirm )
-				modal.content.appendChild( br )
-				modal.content.appendChild( submit )
-				document.body.appendChild( modal.ele )
-				break;
-
-			case 'create':	
-				// modal...
-				break;
-
-			case 'account':
-				break;
-
-			case 'logout':
-				fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/logout.php', 'post', {} )
-				.then( res => {
-					if( res.success ){
-						location.reload()
-					}else{
-						hal('error', res.msg || 'error logging out', 5000 )
-						console.log( res )
-					}
-				})
-				.catch( err => {
-					hal('error', err.msg || 'error logging out', 5000 )
-					console.log( err )
-				})
-				break;
-
-			default: break;
-		}
-	})
-}
-
-nav_toggle.addEventListener('click', () => {
-	if( nav_menu.classList.contains('toggled') ){
-		nav_menu.classList.remove('toggled')
-	}else{
-		nav_menu.classList.add('toggled')
-	}
-})
+const is_manager = document.querySelector('body.role-manager') ? true : false
+const is_admin = document.querySelector('body.role-admin') ? true : false
 
 
 if( create ){
@@ -165,122 +24,126 @@ if( create ){
 	const team = document.querySelector('#create .team')
 	const player = document.querySelector('#create .player')
 
-	tourney.addEventListener('click', () => {
-		const modal = new Modal({
-			type: 'tournament',
-		})
-		const form = document.createElement('form')
-		const title = document.createElement('h3')
-		title.classList.add('modal-title')
-		title.innerText = 'create tournament:'
-		const name = document.createElement('input')
-		name.type = 'text'
-		name.placeholder = 'tournament name'
-		const date = document.createElement('input')
-		date.type = 'text'
-		date.placeholder = 'tournament date'
-		const location = document.createElement('input')
-		location.type = 'text'
-		location.placeholder = 'tournament location'
-		const submit = document.createElement('input')
-		submit.classList.add('button')
-		submit.type = 'submit'
-		submit.value = 'create'
-		const br = document.createElement('br')
-		form.appendChild( title )
-		form.appendChild( name )
-		form.appendChild( date )
-		form.appendChild( location )
-		form.appendChild( br )
-		form.appendChild( submit )
-		modal.content.appendChild( form )
-		document.body.appendChild( modal.ele )
-		form.addEventListener('submit', e => {
-			e.preventDefault()
-			const n = name.value.trim()
-			const d = date.value.trim()
-			const l = location.value.trim()
-			fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
+	if( tourney ){
+		tourney.addEventListener('click', () => {
+			const modal = new Modal({
 				type: 'tournament',
-				date: d,
-				location: l,
-				name: n,
 			})
-			.then( res => {
-				if( res.success ){
-					hal('success', 'success', 3000 )
-					setTimeout(()=>{
-						window.location.reload()
-					}, 1000 )
-				}else{
-					console.log( res )
-					hal('error', res.msg || 'failed to create', 2000 )
-				}
-			})
-			.catch( err => {
-				console.log( err )
-				hal('error', err.msg || 'failed to create', 2000 )
+			const form = document.createElement('form')
+			const title = document.createElement('h3')
+			title.classList.add('modal-title')
+			title.innerText = 'create tournament:'
+			const name = document.createElement('input')
+			name.type = 'text'
+			name.placeholder = 'tournament name'
+			const date = document.createElement('input')
+			date.type = 'text'
+			date.placeholder = 'tournament date'
+			const location = document.createElement('input')
+			location.type = 'text'
+			location.placeholder = 'tournament location'
+			const submit = document.createElement('input')
+			submit.classList.add('button')
+			submit.type = 'submit'
+			submit.value = 'create'
+			const br = document.createElement('br')
+			form.appendChild( title )
+			form.appendChild( name )
+			form.appendChild( date )
+			form.appendChild( location )
+			form.appendChild( br )
+			form.appendChild( submit )
+			modal.content.appendChild( form )
+			document.body.appendChild( modal.ele )
+			form.addEventListener('submit', e => {
+				e.preventDefault()
+				const n = name.value.trim()
+				const d = date.value.trim()
+				const l = location.value.trim()
+				fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
+					type: 'tournament',
+					date: d,
+					location: l,
+					name: n,
+				})
+				.then( res => {
+					if( res.success ){
+						hal('success', 'success', 3000 )
+						setTimeout(()=>{
+							window.location.reload()
+						}, 500 )
+					}else{
+						console.log( res )
+						hal('error', res.msg || 'failed to create', 2000 )
+					}
+				})
+				.catch( err => {
+					console.log( err )
+					hal('error', err.msg || 'failed to create', 2000 )
+				})
 			})
 		})
-	})
+	}
 
-	manager.addEventListener('click', () => {
-		const modal = new Modal({
-			type: 'manager',
-		})
-		const form = document.createElement('form')
-		const title = document.createElement('h3')
-		title.classList.add('modal-title')
-		title.innerText = 'create manager:'
-		const name = document.createElement('input')
-		name.type = 'text'
-		name.placeholder = 'manager name'
-		const email = document.createElement('input')
-		email.type = 'text'
-		email.placeholder = 'manager email'
-		const password = document.createElement('input')
-		password.type = 'text'
-		password.placeholder = 'manager password'
-		const submit = document.createElement('input')
-		submit.classList.add('button')
-		submit.type = 'submit'
-		submit.value = 'create'
-		const br = document.createElement('br')
-		form.appendChild( title )
-		form.appendChild( name )
-		form.appendChild( email )
-		// form.appendChild( password )
-		form.appendChild( br )
-		form.appendChild( submit )
-		modal.content.appendChild( form )
-		document.body.appendChild( modal.ele )
-		form.addEventListener('submit', e => {
-			e.preventDefault()
-			const n = name.value.trim()
-			const em = email.value.trim()
-			// const p = password.value.trim()
-			// fetch_wrap('/create', 'post', {
-			fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
+	if( manager ){
+		manager.addEventListener('click', () => {
+			const modal = new Modal({
 				type: 'manager',
-				name: n,
-				email: em,
-				// password: p,
 			})
-			.then( res => {
-				if( res.success ){
-					hal('success', 'success', 3000 )
-					modal.ele.remove()
-				}else{
-					console.log( res )
-					hal('error', res.msg || 'failed to create', 2000 )
-				}
-			})
-			.catch( err => {
-				console.log( err )
-				hal('error', err.msg || 'failed to create', 2000 )
+			const form = document.createElement('form')
+			const title = document.createElement('h3')
+			title.classList.add('modal-title')
+			title.innerText = 'create manager:'
+			const name = document.createElement('input')
+			name.type = 'text'
+			name.placeholder = 'manager name'
+			const email = document.createElement('input')
+			email.type = 'text'
+			email.placeholder = 'manager email'
+			const password = document.createElement('input')
+			password.type = 'text'
+			password.placeholder = 'manager password'
+			const submit = document.createElement('input')
+			submit.classList.add('button')
+			submit.type = 'submit'
+			submit.value = 'create'
+			const br = document.createElement('br')
+			form.appendChild( title )
+			form.appendChild( name )
+			form.appendChild( email )
+			// form.appendChild( password )
+			form.appendChild( br )
+			form.appendChild( submit )
+			modal.content.appendChild( form )
+			document.body.appendChild( modal.ele )
+			form.addEventListener('submit', e => {
+				e.preventDefault()
+				const n = name.value.trim()
+				const em = email.value.trim()
+				// const p = password.value.trim()
+				// fetch_wrap('/create', 'post', {
+				fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
+					type: 'manager',
+					name: n,
+					email: em,
+					// password: p,
+				})
+				.then( res => {
+					if( res.success ){
+						hal('success', 'success', 3000 )
+						modal.ele.remove()
+					}else{
+						console.log( res )
+						hal('error', res.msg || 'failed to create', 2000 )
+					}
+				})
+				.catch( err => {
+					console.log( err )
+					hal('error', err.msg || 'failed to create', 2000 )
+				})
 			})
 		})
-	})
+	}
 
 	team.addEventListener('click', () => {
 		const modal = new Modal({
@@ -290,22 +153,35 @@ if( create ){
 		const title = document.createElement('h3')
 		title.classList.add('modal-title')
 		title.innerText = 'create team:'
+		let clar
+		if( is_manager ){
+			clar = document.createElement('span')
+			clar.innerText = '(team will be automatically assigned you as manager)'
+			clar.classList.add('clarification')
+		}
 		const name = document.createElement('input')
 		name.type = 'text'
 		name.placeholder = 'team name'
-		const man_label = document.createElement('label')
-		man_label.innerText = 'manager:'
-		const manager = document.createElement('select')
-		fill_select( manager, 'managers' )
+		let man_label 
+		let manager
+		if( is_admin ){
+			man_label = document.createElement('label')
+			man_label.innerText = 'manager:'
+			manager = document.createElement('select')
+			fill_select( manager, 'managers' )			
+		}
 		const submit = document.createElement('input')
 		submit.classList.add('button')
 		submit.type = 'submit'
 		submit.value = 'create'
 		const br = document.createElement('br')
 		form.appendChild( title )
+		if( is_manager ) form.appendChild( clar )
 		form.appendChild( name )
-		form.appendChild( man_label )
-		form.appendChild( manager )
+		if( is_admin ){
+			form.appendChild( man_label )
+			form.appendChild( manager )
+		}
 		form.appendChild( br )
 		form.appendChild( submit )
 		modal.content.appendChild( form )
@@ -346,7 +222,7 @@ if( create ){
 		title.innerText = 'add a player:'
 		const clar = document.createElement('div')
 		clar.classList.add('clarification')
-		clar.innerText = '(to assign the player team, use the team page)'
+		clar.innerText = '(to assign the player\'s team, use the team\'s page)'
 		const name = document.createElement('input')
 		name.type = 'text'
 		name.placeholder = 'player name'
@@ -392,7 +268,7 @@ if( create ){
 					hal('success', 'success', 3000 )
 					// setTimeout(()=>{
 						// window.location.reload()
-					// }, 1000 )
+					// }, 500 )
 					modal.ele.remove()
 				}else{
 					console.log( res )
@@ -443,7 +319,7 @@ if( add_team ){
 					hal('success', 'success', 3000 )
 					setTimeout(()=>{
 						window.location.reload()
-					}, 1000 )
+					}, 500 )
 				}else{	
 					console.log( res )
 					hal('error', res.msg || 'error creating', 3000 )
@@ -492,7 +368,7 @@ if( add_player ){
 					hal('success', 'success', 3000 )
 					setTimeout(()=>{
 						window.location.reload()
-					}, 1000 )
+					}, 500 )
 				}else{	
 					console.log( res )
 					hal('error', res.msg || 'error assigning', 3000 )
@@ -507,6 +383,35 @@ if( add_player ){
 	})
 }
 
+
+if( deletes && deletes.length ){
+	for( const del of deletes ){
+		del.addEventListener('click', e => {
+			if( confirm('delete? cannot be undone') ){
+				fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/delete.php', 'post', {
+					type: del.getAttribute('data-type'),
+					id: del.getAttribute('data-id'),
+				})
+				.then( res => {
+					if( res.success ){
+						hal('success', 'success')
+						setTimeout(()=>{
+							window.location.reload()
+						}, 500)
+					}else{
+						hal('error', 'err deleting', 3000)
+						console.log( res )
+					}
+				})
+				.catch( err => {
+					hal('error', 'err deleting', 3000)
+					console.log( err )
+				})
+			}
+			e.preventDefault()
+		})
+	}
+}
 
 
 

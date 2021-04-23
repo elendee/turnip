@@ -29,7 +29,7 @@ require_once 'head.php';
 
 ?>
 
-<body>
+<body class="<?php echo 'role-' . ( isset( $_SESSION['role'] ) ? $_SESSION['role'] : 'none' ); ?>">
 
 	<?php require_once './includes/nav_menu.php' ?>
 	<?php require_once './includes/create_menu.php' ?>
@@ -45,7 +45,6 @@ require_once 'head.php';
 			<div class='button'>add a player</div>
 		</div>
 		<h4>team players:</h4>
-		<!-- <span class='clarification'>(click for details)</span><br><br> -->
 		<?php
 		foreach ($results3 as $key => $value) {
 			echo '<a class="team row" href="' . $env->public_root . '/server/player.php?t=' . $value['id'] . '">';

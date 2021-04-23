@@ -17,7 +17,16 @@ switch ($type) {
 
 	case 'team':
 		$sql = $pdo->prepare('INSERT INTO teams ( name, manager_key, created ) VALUES ( ?, ?, ? )');
-		$sql->execute([ $post->name, $post->manager_key, date( 'Y-m-d-h-m-s', time() ) ]);
+		if( isset( $_SESSION['role'] ) ){
+			if( $_SESSION['role'] === 'manager' ){
+				$mkey = $_SESSION['id'];
+			}else if( $_SESSION['role'] === 'admin'){
+				$mkey = $post->manager_key;
+			}
+		}else{
+			$mkey = false;
+		}
+		$sql->execute([ $post->name, $mkey, date( 'Y-m-d-h-m-s', time() ) ]);
 		$res->success = true;
 		break;
 

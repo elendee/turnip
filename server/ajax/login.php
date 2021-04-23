@@ -25,12 +25,11 @@ if( isset( $_SESSION['id'] ) ){
 		$results = $sql->fetchAll();
 		if( $results && isset( $results[0] ) ){
 			$user = $results[0];
-			// _LOG( 'user? ' . json_encode( $user ) );
-			// _LOG('verifying: ' . $post->password . $user->password );
 			if( password_verify( $post->password, $user['password'] ) ){ 
 				$_SESSION['id'] = $user['id'];
 				$_SESSION['email'] = $user['email'];
 				$_SESSION['name'] = $user['name'];
+				$_SESSION['role'] = $user['role'];
 				$res->success = true;
 			}else{
 				$res->success = false;

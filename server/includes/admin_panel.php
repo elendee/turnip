@@ -1,8 +1,12 @@
-<?php include_once './global_config.php'; 
+<?php 
 
-if( $_SESSION['id'] ){ ?>
+if( isset( $_SESSION['id'] ) ){
 
-	<?php require_once 'create_menu.php' ?>
+	$is_admin = isset( $_SESSION['role'] ) && $_SESSION['role'] === 'admin' ? true : false;
+
+	require_once 'create_menu.php';
+
+	?>
 
 	<div id='admin'>
 		<h3 class='admin-section'>tournaments:</h3>
@@ -21,6 +25,9 @@ if( $_SESSION['id'] ){ ?>
 				echo '</div>';
 				foreach ($results as $key => $value) {
 					echo '<a href="' . $env->public_root . '/server/tournament.php?t=' . $value['id'] . '" class="tournament-result row">';
+					if( $is_admin ){
+						echo '<div class="delete button" data-type="tournament" data-id="' . $value['id'] . '">x</div>';
+					}
 					echo '<div class="column column-3">';
 					echo $value['name'];
 					echo '</div>';
@@ -43,3 +50,4 @@ if( $_SESSION['id'] ){ ?>
 	echo '<div class="flex-wrapper">managers only: must be logged in</div>';
 
 }
+

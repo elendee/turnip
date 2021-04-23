@@ -14,7 +14,7 @@
 </div>
 
 <div class='site-title'>
-	<a href='<?php echo $env->public_root ?>'><h2>NYCSL manager</h2></a>
+	<a href='<?php echo $env->public_root ?>'><h2><?php echo $env->site_title; ?></h2></a>
 	<div class='clarification'>(click to view tournaments)</div>
 </div>
 
