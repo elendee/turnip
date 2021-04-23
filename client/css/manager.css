@@ -53,6 +53,7 @@ div{
 	margin-bottom: 20px;
 	cursor: pointer;
 	user-select: none;
+	font-weight: bold;
 }
 
 #nav-menu{
@@ -67,7 +68,8 @@ div{
 .nav-item{
 	display: block;
 /* 	margin: 10px 0; */
-	padding: 10px
+	padding: 15px 10px;
+	font-weight: bold;
 }
 .row{
 	font-size: 0px;
@@ -250,15 +252,16 @@ input.button[type=submit]{
 
 #tournament,
 #team,
-#player{
+#player,
+#team-registrations{
 	margin-top: 50px;
 	padding: 20px;
 }
 
 #tournament .row,
 #team .row,
-#admin .row{
-/* 	padding: 5px; */
+#admin .row,
+#team-registrations a.team.row{
 	padding: 15px 5px;
 
 }

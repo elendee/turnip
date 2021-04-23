@@ -7,9 +7,9 @@
 <div id='nav-toggle' class='flex-wrapper'>menu</div>
 <div id='nav-menu'>
 	<?php
-	if( !$logged ) echo '<a href="/login" class="nav-item">login</a>';
-	if( !$logged ) echo '<a href="/register" class="nav-item">register</a>';
-	if( $logged ) echo '<a href="/logout" class="nav-item">logout</a>';
+	if( !$is_logged ) echo '<a href="/login" class="nav-item">login</a>';
+	if( !$is_logged ) echo '<a href="/register" class="nav-item">register</a>';
+	if( $is_logged ) echo '<a href="/logout" class="nav-item">logout</a>';
 	?>
 </div>
 

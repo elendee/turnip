@@ -5,7 +5,10 @@ set_include_path( __DIR__ . ':' . __DIR__ . '/server/includes:' . __DIR__ . '/se
 $root = $_SERVER["DOCUMENT_ROOT"];
 require_once __DIR__ . '/.env.php';
 
-$logged = isset( $_SESSION['id'] );
+// $is_logged = isset( $_SESSION['id'] );
+$is_admin = isset( $_SESSION['role'] ) && $_SESSION['role'] === 'admin' ? true : false;
+$is_manager = isset( $_SESSION['role'] ) && $_SESSION['role'] === 'manager' ? true : false;
+$is_logged = ( $is_admin || $is_manager ) ? true : false;
 
  try{
      $pdo=new PDO("mysql:host=" . $env->db_host . "; port=3306; dbname=" . $env->db_name, $env->db_user, $env->db_password );
@@ -38,8 +41,6 @@ function get_post(){
 
 	// decode the json data
 	$data = json_decode($json);
-
-	// var_dump( $json );
 
 	return $data;
 

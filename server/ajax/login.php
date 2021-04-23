@@ -8,9 +8,10 @@ $res = new stdClass();
 
 $post = get_post();
 
-if( isset( $_SESSION['id'] ) ){
+if( $is_logged ){ // isset( $_SESSION['id']
 	$res->success = true;
 	$res->msg = 'already logged in';
+	_LOG('already logged');
 }else{
 	if( !isset( $post->email ) || !isset( $post->password ) ){
 		$res->success = false;

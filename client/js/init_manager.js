@@ -145,142 +145,146 @@ if( create ){
 		})
 	}
 
-	team.addEventListener('click', () => {
-		const modal = new Modal({
-			type: 'team',
-		})
-		const form = document.createElement('form')
-		const title = document.createElement('h3')
-		title.classList.add('modal-title')
-		title.innerText = 'create team:'
-		let clar
-		if( is_manager ){
-			clar = document.createElement('span')
-			clar.innerText = '(team will be automatically assigned you as manager)'
-			clar.classList.add('clarification')
-		}
-		const name = document.createElement('input')
-		name.type = 'text'
-		name.placeholder = 'team name'
-		let man_label 
-		let manager
-		if( is_admin ){
-			man_label = document.createElement('label')
-			man_label.innerText = 'manager:'
-			manager = document.createElement('select')
-			fill_select( manager, 'managers' )			
-		}
-		const submit = document.createElement('input')
-		submit.classList.add('button')
-		submit.type = 'submit'
-		submit.value = 'create'
-		const br = document.createElement('br')
-		form.appendChild( title )
-		if( is_manager ) form.appendChild( clar )
-		form.appendChild( name )
-		if( is_admin ){
-			form.appendChild( man_label )
-			form.appendChild( manager )
-		}
-		form.appendChild( br )
-		form.appendChild( submit )
-		modal.content.appendChild( form )
-		document.body.appendChild( modal.ele )
-		form.addEventListener('submit', e => {
-			e.preventDefault()
-			const n = name.value.trim()
-			const m = manager.value
-			// fetch_wrap('/create', 'post', {
-			fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
+	if( team ){
+		team.addEventListener('click', () => {
+			const modal = new Modal({
 				type: 'team',
-				name: n,
-				manager_key: m,
 			})
-			.then( res => {
-				if( res.success ){
-					hal('success', 'success', 3000 )
-					modal.ele.remove()
-				}else{
-					console.log( res )
-					hal('error', res.msg || 'failed to create', 2000 )
-				}
-			})
-			.catch( err => {
-				console.log( err )
-				hal('error', err.msg || 'failed to create', 2000 )
+			const form = document.createElement('form')
+			const title = document.createElement('h3')
+			title.classList.add('modal-title')
+			title.innerText = 'create team:'
+			let clar
+			if( is_manager ){
+				clar = document.createElement('span')
+				clar.innerText = '(team will be automatically assigned you as manager)'
+				clar.classList.add('clarification')
+			}
+			const name = document.createElement('input')
+			name.type = 'text'
+			name.placeholder = 'team name'
+			let man_label 
+			let manager
+			if( is_admin ){
+				man_label = document.createElement('label')
+				man_label.innerText = 'manager:'
+				manager = document.createElement('select')
+				fill_select( manager, 'managers' )			
+			}
+			const submit = document.createElement('input')
+			submit.classList.add('button')
+			submit.type = 'submit'
+			submit.value = 'create'
+			const br = document.createElement('br')
+			form.appendChild( title )
+			if( is_manager ) form.appendChild( clar )
+			form.appendChild( name )
+			if( is_admin ){
+				form.appendChild( man_label )
+				form.appendChild( manager )
+			}
+			form.appendChild( br )
+			form.appendChild( submit )
+			modal.content.appendChild( form )
+			document.body.appendChild( modal.ele )
+			form.addEventListener('submit', e => {
+				e.preventDefault()
+				const n = name.value.trim()
+				const m = manager.value
+				// fetch_wrap('/create', 'post', {
+				fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
+					type: 'team',
+					name: n,
+					manager_key: m,
+				})
+				.then( res => {
+					if( res.success ){
+						hal('success', 'success', 3000 )
+						modal.ele.remove()
+					}else{
+						console.log( res )
+						hal('error', res.msg || 'failed to create', 2000 )
+					}
+				})
+				.catch( err => {
+					console.log( err )
+					hal('error', err.msg || 'failed to create', 2000 )
+				})
 			})
 		})
-	})
+	}
 
-	player.addEventListener('click', () => {
-		const modal = new Modal({
-			type: 'player',
-		})
-		const form = document.createElement('form')
-		const title =document.createElement('h3')
-		title.classList.add('modal-title')
-		title.innerText = 'add a player:'
-		const clar = document.createElement('div')
-		clar.classList.add('clarification')
-		clar.innerText = '(to assign the player\'s team, use the team\'s page)'
-		const name = document.createElement('input')
-		name.type = 'text'
-		name.placeholder = 'player name'
-		const surname = document.createElement('input')
-		surname.type = 'text'
-		surname.placeholder = 'player last name'
-		const position = document.createElement('input')
-		position.type = 'text'
-		position.placeholder = 'player position (optional)'
-		const email = document.createElement('input')
-		email.type = 'text'
-		email.placeholder = 'player email (optional)'
-		const submit = document.createElement('input')
-		submit.classList.add('button')
-		submit.type = 'submit'
-		submit.value = 'create'
-		const br = document.createElement('br')
-		form.appendChild( title )
-		form.appendChild( clar )
-		form.appendChild( name )
-		form.appendChild( surname )
-		form.appendChild( email )
-		form.appendChild( position )
-		form.appendChild( br )
-		form.appendChild( submit )
-		modal.content.appendChild( form )
-		document.body.appendChild( modal.ele )
-		form.addEventListener('submit', e => {
-			e.preventDefault()
-			const n = name.value.trim()
-			const s = surname.value.trim()
-			const em = email.value.trim()
-			const p = position.value.trim()
-			fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
+	if( player ){
+		player.addEventListener('click', () => {
+			const modal = new Modal({
 				type: 'player',
-				name: n,
-				surname: s,
-				email: em,
-				position: p,
 			})
-			.then( res => {
-				if( res.success ){
-					hal('success', 'success', 3000 )
-					// setTimeout(()=>{
-						// window.location.reload()
-					// }, 500 )
-					modal.ele.remove()
-				}else{
-					console.log( res )
-					hal('error', res.msg || 'failed to create', 2000 )
-				}
-			})
-			.catch( err => {
-				console.log( err )
-				hal('error', err.msg || 'failed to create', 2000 )
+			const form = document.createElement('form')
+			const title =document.createElement('h3')
+			title.classList.add('modal-title')
+			title.innerText = 'add a player:'
+			const clar = document.createElement('div')
+			clar.classList.add('clarification')
+			clar.innerText = '(to assign the player\'s team, use the team\'s page)'
+			const name = document.createElement('input')
+			name.type = 'text'
+			name.placeholder = 'player name'
+			const surname = document.createElement('input')
+			surname.type = 'text'
+			surname.placeholder = 'player last name'
+			const position = document.createElement('input')
+			position.type = 'text'
+			position.placeholder = 'player position (optional)'
+			const email = document.createElement('input')
+			email.type = 'text'
+			email.placeholder = 'player email (optional)'
+			const submit = document.createElement('input')
+			submit.classList.add('button')
+			submit.type = 'submit'
+			submit.value = 'create'
+			const br = document.createElement('br')
+			form.appendChild( title )
+			form.appendChild( clar )
+			form.appendChild( name )
+			form.appendChild( surname )
+			form.appendChild( email )
+			form.appendChild( position )
+			form.appendChild( br )
+			form.appendChild( submit )
+			modal.content.appendChild( form )
+			document.body.appendChild( modal.ele )
+			form.addEventListener('submit', e => {
+				e.preventDefault()
+				const n = name.value.trim()
+				const s = surname.value.trim()
+				const em = email.value.trim()
+				const p = position.value.trim()
+				fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
+					type: 'player',
+					name: n,
+					surname: s,
+					email: em,
+					position: p,
+				})
+				.then( res => {
+					if( res.success ){
+						hal('success', 'success', 3000 )
+						// setTimeout(()=>{
+							// window.location.reload()
+						// }, 500 )
+						modal.ele.remove()
+					}else{
+						console.log( res )
+						hal('error', res.msg || 'failed to create', 2000 )
+					}
+				})
+				.catch( err => {
+					console.log( err )
+					hal('error', err.msg || 'failed to create', 2000 )
+				})
 			})
 		})
-	})
+	}
 
 }
 

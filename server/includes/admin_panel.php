@@ -1,10 +1,8 @@
 <?php 
 
-if( isset( $_SESSION['id'] ) ){
+// if( isset( $_SESSION['id'] ) ){
 
-	$is_admin = isset( $_SESSION['role'] ) && $_SESSION['role'] === 'admin' ? true : false;
-
-	require_once 'create_menu.php';
+	require_once 'account_menu.php';
 
 	?>
 
@@ -45,9 +43,9 @@ if( isset( $_SESSION['id'] ) ){
 
 <?php 
 
-}else{
+// }else{
 
-	echo '<div class="flex-wrapper">managers only: must be logged in</div>';
+// 	echo '<div class="flex-wrapper">managers only: must be logged in</div>';
 
-}
+// }
 
