@@ -1,0 +1,287 @@
+body{
+	margin: 0;
+/* 	padding: 10px; */
+}
+
+*{
+	font-family: monospace;
+}
+
+div{
+    box-sizing: border-box;
+}
+
+.align-center{
+	text-align: center;
+}
+
+.category{
+	background: #37a73a;
+	color: white;
+	padding: 5px;
+/* 	color: orange; */
+}
+
+.site-title{
+    display: inline-block;
+    width: 100%;
+	transform: rotate(-3deg);
+	text-align: center;
+	padding-top: 15px;
+	pointer-events: none;
+/* 	border: 1px solid green; */
+}
+.site-title *{
+/* 	border: 1px solid red; */
+
+}
+.site-title a{
+	display: inline-block;
+	pointer-events: initial;
+}
+
+.page-category{
+	text-align: center;
+}
+
+#nav-toggle{
+    position: absolute;
+    background: #f5a227;
+    width: 50px;
+    height: 50px;
+	margin-bottom: 20px;
+	cursor: pointer;
+	user-select: none;
+}
+
+#nav-menu{
+/* 	border: 1px solid; */
+	position: fixed;
+	width: 100px;
+	display: none;
+	top: 50px;
+	user-select: none;
+	background: #f5a227;
+}
+.nav-item{
+	display: block;
+/* 	margin: 10px 0; */
+	padding: 10px
+}
+.row{
+	font-size: 0px;
+	width: 100%;
+	display: inline-block;
+}
+.column{
+	font-size: initial;
+	display: inline-block;
+	width: 100%;
+}
+.column-2{
+	max-width: 50%;
+}
+.column-3{
+	max-width: 33%;
+}
+#nav-menu.toggled{
+	display: initial;
+}
+
+.flex-wrapper{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+input.button[type=submit]{
+	display: inline-block;
+	width: auto;
+	border: 0px;
+}
+.button{
+	user-select: none;
+	background: #aeaedc;
+	padding: 5px;
+	cursor: pointer;
+	display: inline-block;
+}
+.button:hover{
+	background: #7c7cb3;
+}
+
+.spinner{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -25px;
+    margin-top: -25px;
+    display: none;
+}
+.spinner img{
+	max-width: 50px;
+}
+
+
+
+
+
+#alert-contain{
+	position:fixed;
+	z-index: 999999;
+	bottom: 100px;
+	right: 30px;
+	text-align: right;
+	width: 70%;
+	pointer-events: none;
+	padding-top: 10px;
+}
+.alert-wrap{
+	transition: .5s;
+}
+.alert-msg{
+	position: relative;
+/* 	background: rgba(0, 0, 0, .9); */
+/* 	color: lightgrey; */
+	font-size: 13px;
+	display: inline-block;
+	margin: 1px 0;
+	padding: 3px 40px 3px 20px;
+    pointer-events: initial;
+    background: white;
+}
+.alert-msg pre{
+	max-height: 80vh;
+    overflow-y: auto;
+}
+.alert-icon, 
+.alert-close{
+	height: 100%;
+	width: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.alert-icon{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 12px;
+}
+.alert-close{
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	pointer-events: initial;
+	cursor: pointer;
+	background: black;
+	color: white;
+	font-size: 1.5rem;
+}
+.alert-close:hover{
+	background: rgba(250, 50, 55, .4);
+}
+.alert-icon{
+	background: lightgrey;
+}
+.alert-icon.type-success{
+	background: rgba(100, 245, 100, .7);
+}
+.alert-icon.type-error,
+.alert-icon.type-warning{
+	background: red;
+}
+.hal .alert-icon{
+	background: rgb(255 235 0)
+}
+
+#admin{
+	margin-left: 50px;
+	max-width: calc(100% - 50px);
+	margin-top: 80px;
+/* 	border: 2px solid; */
+    padding: 20px;
+}
+#create{
+	position: fixed;
+	right: 0px;
+	top: 0px;
+	background: white;
+	padding: 5px;
+    background: #e6dddd;
+}
+
+#admin .row.header{
+	font-weight: bold;
+}
+/*
+#edit{
+    border: 3px solid red;
+} */
+.admin-action{
+	display: inline-block;
+}
+#admin .team-manager{
+/*     border: 1px solid green; */
+}
+#admin .tournament{
+/*     border: 1px solid lightblue;	 */
+}
+
+.admin-section{
+	color: #3163ec;
+	text-align: left;
+}
+.tournament-result:nth-of-type(even){
+	background: #bebed8;
+}
+.tournament-result{
+	padding: 5px;
+	cursor: pointer;
+}
+.tournament-result:hover{
+	background: #adadd8;
+}
+.clarification{
+	font-style: italic;
+}
+
+#tournament,
+#team,
+#player{
+	margin-top: 50px;
+	padding: 20px;
+}
+
+#tournament .row,
+#team .row{
+	padding: 5px;
+}
+
+#tournament .row:nth-of-type(odd),
+#team .row:nth-of-type(odd){
+	background: rgba(0, 0, 0, .25);
+}
+
+.main-info{
+	text-align: center;
+}
+.main-info-liner{
+	padding: 10px;
+	background: #e8f3e8;
+	display: inline-block;
+}
+
+#add-team,
+#add-player{
+	text-align: center;
+	margin-top: 30px;
+	font-weight: bold;
+}
+
+@media screen and (max-width: 800px){
+	.column-2,
+	.column-3{
+        max-width: 100%;
+	}
+}
