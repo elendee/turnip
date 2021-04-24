@@ -149,20 +149,21 @@ const init = () => {
 		})
 	}	
 
-	nav_toggle.addEventListener('mouseover', () => {
-		// if( nav_menu.classList.contains('toggled') ){
-			// nav_menu.classList.remove('toggled')
-		// }else{
-			nav_menu.classList.add('toggled')
+	nav_toggle.addEventListener('click', () => {
+		if( nav_menu.classList.contains('toggled') ){ // for mobile
+			nav_menu.classList.remove('toggled')
+		}
+		// else{
+			// nav_menu.classList.add('toggled')
 		// }
 	})
 
+	nav_toggle.addEventListener('mouseover', () => {
+		nav_menu.classList.add('toggled')
+	})
+
 	nav_toggle.addEventListener('mouseout', () => {
-		// if( nav_menu.classList.contains('toggled') ){
 			nav_menu.classList.remove('toggled')
-		// }else{
-			// nav_menu.classList.add('toggled')
-		// }
 	})
 }
 
