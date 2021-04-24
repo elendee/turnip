@@ -2,9 +2,12 @@
 <div id='nav-toggle' class='flex-wrapper'>
 	menu
 	<div id='nav-menu'>
-		<a class='nav-item' href='<?php echo $env->public_root . '/' ?>'>tournaments</a>
-		<a class='nav-item' href='<?php echo $env->public_root . '/server/teams.php' ?>'>teams</a>
-		<a class='nav-item' href='<?php echo $env->public_root . '/server/players.php' ?>'>players</a>
+
+		<div id='nav'>
+			<a class='nav-item' href='<?php echo $env->public_root . '/' ?>'>tournaments</a>
+			<a class='nav-item' href='<?php echo $env->public_root . '/server/teams.php' ?>'>teams</a>
+			<a class='nav-item' href='<?php echo $env->public_root . '/server/players.php' ?>'>players</a>
+		</div>
 
 		<?php 
 

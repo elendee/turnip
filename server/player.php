@@ -42,11 +42,12 @@ require_once 'head.php';
 			if( $results2 ){
 				echo '<h4>player is registered on teams:</h4>';
 			}
+			echo header_row('team', 'manager');
 			foreach ($results2 as $key => $value) {
-				echo '<a class="team row" href="' . $env->public_root . '/server/team.php?t=' . $value['id'] . '">';
-				echo '<div class="column column-2">' . $value['name'] . '</div>';
+				echo '<div class="team row">';
+				echo '<div class="column column-2"><a href="' . $env->public_root . '/server/team.php?t=' . $value['id'] . '">' . $value['name'] . '</a></div>';
 				echo '<div class="column column-2">' . $value['user_name'] . '</div>';
-				echo '</a>';
+				echo '</div>';
 			}
 		?>
 	</div>

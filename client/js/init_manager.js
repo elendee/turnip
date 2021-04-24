@@ -5,7 +5,6 @@ import hal from './hal.js?v=5'
 import env from './env.js?v=5'
 import nav from './nav.js?v=5'
 
-const admin = document.querySelector('#admin')
 const create = document.querySelector('#create')
 const add_team = document.querySelector('#add-team .button')
 const add_player = document.querySelector('#add-player .button')

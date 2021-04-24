@@ -44,16 +44,16 @@ require_once 'head.php';
 		</div>
 		<?php } ?>
 		<h4>registered teams:</h4>
-		<span class='clarification'>(click for details)</span><br><br>
+		<span class='clarification'>(click for team details)</span><br><br>
 		<?php
 		foreach ($results3 as $key => $value) {
-			echo '<a class="team row" href="' . $env->public_root . '/server/team.php?t=' . $value['id'] . '">';
+			echo '<div class="team row">';
 			if( $is_admin ){
 				echo '<div class="delete button" data-type="registration" data-team_key="' . $value['id'] . '" data-tourney_key="' . $_GET['t'] . '">x</div>';
 			}
-			echo '<div class="column column-2">' . $value['name'] . '</div>';
+			echo '<div class="column column-2"><a href="' . $env->public_root . '/server/team.php?t=' . $value['id'] . '"/>' . $value['name'] . '</a></div>';
 			echo '<div class="column column-2">' . $value['user_name'] . '</div>';
-			echo '</a>';
+			echo '</div>';
 		}
 		?>
 	</div>

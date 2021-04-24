@@ -15,15 +15,17 @@ $results = $sql->fetchAll();
 
 	<div id='teams' class='main-content'>
 		<h3 class='page-category'><span class='category'><?php echo $env->site_title; ?> teams:</span></h3>
-
 		<?php
+			echo header_row('name', 'manager');
 			foreach ($results as $key => $value) {
-				echo '<a class="row team" href="' . $env->public_root . '/server/team.php?t=' . $value['id'] . '">';
-				echo '<div class="delete button" data-type="team" data-team_key="' . $value['id'] . '">x</div>';
+				echo '<div class="row team">';
+				if( $is_admin ){
+					echo '<div class="delete button" data-type="team" data-team_key="' . $value['id'] . '">x</div>';
+				}
 
-				echo '<div class="column column-2">' . $value['name'] . '</div>';
+				echo '<div class="column column-2"><a href="' . $env->public_root . '/server/team.php?t=' . $value['id'] . '">' . $value['name'] . '</a></div>';
 				echo '<div class="column column-2">' . $value['user_name'] . '</div>';
-				echo '</a>';
+				echo '</div>';
 			}
 		?>
 

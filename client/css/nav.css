@@ -1,6 +1,6 @@
 #admin{
-	margin-left: 50px;
-	max-width: calc(100% - 50px);
+/* 	margin-left: 50px; */
+/* 	max-width: calc(100% - 50px); */
 	margin-top: 80px;
     padding: 20px;
 /*     border: 2px solid green; */
@@ -8,11 +8,20 @@
 #account{
 	position: fixed;
 	right: 0px;
-	top: 0px;
+	top: 50px;
 	background: white;
-	padding: 5px;
+	padding: 10px;
     background: #e6dddd;
-/*     border: 2px solid red;    */
+    display: none;
+}
+#account-toggle{
+	position: absolute;
+    background: #e6dddd;
+	right: 0px;
+	top: 0px;
+    display: inline-block;
+    width: 50px; 
+    height: 50px;
 }
 
 #create{
@@ -24,7 +33,7 @@
 	margin: 5px 0;
 }
 
-#admin .row.header{
+.row.header{
 	font-weight: bold;
 }
 #admin .team-manager{
@@ -56,18 +65,33 @@
 	user-select: none;
 	background: #e6dddd;
 }
+#nav{
+    padding: 20px 0;
+}
 .nav-item{
-	padding: 20px 10px; 
+	padding: 10px 10px; 
 	display: inline-block;
 }
+
+#nav-menu.toggled,
+#account.toggled{
+	display: initial;
+}
+
+
 .async-item{
 	display: block;
-	padding: 15px 10px;
+	padding: 10px 0px;
 	font-weight: bold;
 }
 
-
 #auth-area{
-	padding: 10px 0;
 	text-align: right;
+}
+
+
+@media screen and (max-width: 800px){
+	.site-title{
+		font-size: .8rem;
+	}
 }

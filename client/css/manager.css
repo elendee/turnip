@@ -8,6 +8,11 @@ body{
 	font-family: monospace;
 }
 
+img{
+	max-width: 100%;
+}
+
+
 div, a{
     box-sizing: border-box;
 }
@@ -71,9 +76,6 @@ div, a{
 }
 .column-3{
 	max-width: 33%;
-}
-#nav-menu.toggled{
-	display: initial;
 }
 
 .flex-wrapper{

@@ -45,14 +45,17 @@ require_once 'head.php';
 		<div id='add-player'>
 			<div class='button'>add a player</div>
 		</div>
-		<?php } ?>
-		<h4>team <?php echo $team['name'] ?> players:</h4>
-		<?php
+		<?php 
+		} 
+		
+		echo '<h4>team ' . $team['name'] . 'players:</h4>';
+		echo header_row('name', 'position');
+
 		foreach ($results3 as $key => $value) {
-			echo '<a class="team row" href="' . $env->public_root . '/server/player.php?t=' . $value['id'] . '">';
-			echo '<div class="column column-2">' . $value['name'] . '</div>';
+			echo '<div class="team row">';
+			echo '<div class="column column-2"><a href="' . $env->public_root . '/server/player.php?t=' . $value['id'] . '">' . $value['name'] . '</a></div>';
 			echo '<div class="column column-2">' . $value['position'] . '</div>';
-			echo '</a>';
+			echo '</div>';
 		}
 		?>
 	</div>

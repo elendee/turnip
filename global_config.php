@@ -45,3 +45,13 @@ function get_post(){
 	return $data;
 
 }
+
+function header_row( ...$values ){
+	$size = sizeof($values);
+	$row = '<div class="row header">';
+	foreach ($values as $key => $value) {
+		$row = $row . '<div class="column column-' . $size . '">' . $value . '</div>';
+	}
+	$row = $row . '</div>';
+	return $row;
+}

@@ -10,6 +10,9 @@ const init = () => {
 	const nav_menu = document.querySelector('#nav-menu')
 	const nav_toggle = document.querySelector('#nav-toggle')
 
+	const acc_menu = document.querySelector('#account')
+	const acc_toggle = document.querySelector('#account-toggle')
+
 	const async_items = document.querySelectorAll('.async-item')
 
 	for( const item of async_items ){
@@ -162,6 +165,22 @@ const init = () => {
 	nav_toggle.addEventListener('mouseout', () => {
 			nav_menu.classList.remove('toggled')
 	})
+
+
+	acc_toggle.addEventListener('click', () => {
+		if( acc_menu.classList.contains('toggled') ){ // for mobile
+			acc_menu.classList.remove('toggled')
+		}
+	})
+
+	acc_toggle.addEventListener('mouseover', () => {
+		acc_menu.classList.add('toggled')
+	})
+
+	acc_toggle.addEventListener('mouseout', () => {
+		acc_menu.classList.remove('toggled')
+	})
+
 }
 
 
