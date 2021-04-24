@@ -44,8 +44,8 @@ require_once 'head.php';
 		</div>
 		<?php } ?>
 		<h4>registered teams:</h4>
-		<span class='clarification'>(click for team details)</span><br><br>
 		<?php
+		echo header_row('team', 'manager');
 		foreach ($results3 as $key => $value) {
 			echo '<div class="team row">';
 			if( $is_admin ){
@@ -58,6 +58,6 @@ require_once 'head.php';
 		?>
 	</div>
 
-	<script type="module" src='../client/js/init_manager.js?v=7'></script>
+	<script type="module" src='../client/js/init_manager.js?v=8'></script>
 
 </body>

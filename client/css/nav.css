@@ -5,23 +5,29 @@
     padding: 20px;
 /*     border: 2px solid green; */
 }
-#account{
-	position: fixed;
-	right: 0px;
-	top: 50px;
-	background: white;
-	padding: 10px;
-    background: #e6dddd;
-    display: none;
-}
 #account-toggle{
-	position: absolute;
+	position: fixed;
     background: #e6dddd;
 	right: 0px;
 	top: 0px;
     display: inline-block;
-    width: 50px; 
+    width: 60px; 
     height: 50px;
+    padding: 5px;
+    text-align: center;
+}
+#account{
+	position: absolute;
+	width: 150px;
+	right: 0px;
+	top: 50px;
+    background: #e6dddd;
+    display: none;
+    padding: 10px;
+    text-align: left;
+}
+#account-toggle img{
+	display: inline-block;
 }
 
 #create{
@@ -36,6 +42,9 @@
 .row.header{
 	font-weight: bold;
 }
+.row.header:hover{
+	background: white !important;
+}
 #admin .team-manager{
 /*     border: 1px solid green; */
 }
@@ -47,7 +56,7 @@
 #nav-toggle{
     position: absolute;
     background: #e6dddd;
-    width: 50px;
+    width: 60px;
     height: 50px;
 	margin-bottom: 20px;
 	cursor: pointer;
