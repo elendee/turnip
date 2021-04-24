@@ -190,7 +190,7 @@ if( create ){
 			form.addEventListener('submit', e => {
 				e.preventDefault()
 				const n = name.value.trim()
-				const m = manager.value
+				const m = manager ? manager.value : false
 				// fetch_wrap('/create', 'post', {
 				fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
 					type: 'team',

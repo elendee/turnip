@@ -19,7 +19,7 @@ $sql3->execute([ $_GET['t'] ]);
 $results3 = $sql3->fetchAll();
 
 $sql4 = $pdo->prepare('SELECT * FROM users WHERE id=? AND role="manager" LIMIT 1' );
-$sql4->execute([ $_GET['t'] ]);
+$sql4->execute([ $team ? $team['manager_key'] : false ]);
 $results4 = $sql4->fetchAll();
 if( $results4 ){
 	$manager = $results4[0]['name'];
@@ -41,10 +41,12 @@ require_once 'head.php';
 				echo '<div style="text-align: center">manager: ' . $manager . '</div>';
 			}
 		?>
+		<?php if( isset( $team ) && $is_logged && $team['manager_key'] === $_SESSION['id'] ){ ?>
 		<div id='add-player'>
 			<div class='button'>add a player</div>
 		</div>
-		<h4>team players:</h4>
+		<?php } ?>
+		<h4>team <?php echo $team['name'] ?> players:</h4>
 		<?php
 		foreach ($results3 as $key => $value) {
 			echo '<a class="team row" href="' . $env->public_root . '/server/player.php?t=' . $value['id'] . '">';

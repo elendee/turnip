@@ -9,15 +9,16 @@ const init = () => {
 
 	const nav_menu = document.querySelector('#nav-menu')
 	const nav_toggle = document.querySelector('#nav-toggle')
-	const nav_items = document.querySelectorAll('.nav-item')
 
-	for( const item of nav_items ){
+	const async_items = document.querySelectorAll('.async-item')
+
+	for( const item of async_items ){
 		item.addEventListener('click', e => {
 			e.preventDefault()
 			let email, password, submit, br, modal
 			switch( item.innerText ){
 
-				case 'login':	
+				case 'login':
 					modal = new Modal({
 						type: 'login',
 					})
@@ -148,12 +149,20 @@ const init = () => {
 		})
 	}	
 
-	nav_toggle.addEventListener('click', () => {
-		if( nav_menu.classList.contains('toggled') ){
-			nav_menu.classList.remove('toggled')
-		}else{
+	nav_toggle.addEventListener('mouseover', () => {
+		// if( nav_menu.classList.contains('toggled') ){
+			// nav_menu.classList.remove('toggled')
+		// }else{
 			nav_menu.classList.add('toggled')
-		}
+		// }
+	})
+
+	nav_toggle.addEventListener('mouseout', () => {
+		// if( nav_menu.classList.contains('toggled') ){
+			nav_menu.classList.remove('toggled')
+		// }else{
+			// nav_menu.classList.add('toggled')
+		// }
 	})
 }
 

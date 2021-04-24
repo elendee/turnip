@@ -4,13 +4,13 @@
 ?>
 
 <div id='alert-contain'></div>
-<div id='nav-toggle' class='flex-wrapper'>menu</div>
-<div id='nav-menu'>
-	<?php
-	if( !$is_logged ) echo '<a href="/login" class="nav-item">login</a>';
-	if( !$is_logged ) echo '<a href="/register" class="nav-item">register</a>';
-	if( $is_logged ) echo '<a href="/logout" class="nav-item">logout</a>';
-	?>
+<div id='nav-toggle' class='flex-wrapper'>
+	menu
+	<div id='nav-menu'>
+		<a class='nav-item' href='/'>tournaments</a>
+		<a class='nav-item' href='/teams.php'>teams</a>
+		<a class='nav-item' href='/players.php'>players</a>
+	</div>
 </div>
 
 <div class='site-title'>
