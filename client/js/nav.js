@@ -150,6 +150,7 @@ const init = () => {
 	}	
 
 	nav_toggle.addEventListener('click', () => {
+		alert('ya')
 		if( nav_menu.classList.contains('toggled') ){ // for mobile
 			nav_menu.classList.remove('toggled')
 		}
