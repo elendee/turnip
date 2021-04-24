@@ -52,6 +52,6 @@ require_once 'head.php';
 		?>
 	</div>
 
-	<script type="module" src='../client/js/init_manager.js?v=2'></script>
+	<script type="module" src='../client/js/init_manager.js?v=3'></script>
 
 </body>

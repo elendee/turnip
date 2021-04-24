@@ -1,4 +1,4 @@
-import env from './env.js?v=2'
+import env from './env.js?v=3'
 
 let spinning = false
 
