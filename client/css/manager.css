@@ -8,7 +8,7 @@ body{
 	font-family: monospace;
 }
 
-div{
+div, a{
     box-sizing: border-box;
 }
 
@@ -44,40 +44,22 @@ div{
 	text-align: center;
 }
 
-#nav-toggle{
-    position: absolute;
-    background: #e6dddd;
-    width: 50px;
-    height: 50px;
-	margin-bottom: 20px;
-	cursor: pointer;
-	user-select: none;
-	font-weight: bold;
-}
-
-#nav-menu{
-	position: fixed;
-	width: 120px;
-	display: none;
-	top: 50px;
-	left: 0px;
-	user-select: none;
-	background: #e6dddd;
-}
-.nav-item{
-	padding: 20px 10px; 
-	display: inline-block;
-}
-.async-item{
-	display: block;
-	padding: 15px 10px;
-	font-weight: bold;
-}
 .row{
 	font-size: 0px;
 	width: 100%;
 	display: inline-block;
 	position: relative;
+	padding: 15px 5px;	
+}
+.row:nth-of-type(even){
+	background: #e6e6fd;
+}
+.row:hover{
+	background: #adadd8 !important;
+}
+.row.header{
+	background: white;
+	border-bottom: 1px solid;
 }
 .column{
 	font-size: initial;
@@ -107,11 +89,14 @@ input.button[type=submit]{
 }
 .button{
 	user-select: none;
-	background: #aeaedc;
+	background: #ff9c08;
 	padding: 5px;
 	cursor: pointer;
 	display: inline-block;
 }
+/* .admin-action .button{
+	background: orange;
+} */
 .button:hover{
 	background: #7c7cb3;
 }
@@ -201,76 +186,28 @@ input.button[type=submit]{
 	background: rgb(255 235 0)
 }
 
-#admin{
-	margin-left: 50px;
-	max-width: calc(100% - 50px);
-	margin-top: 80px;
-/* 	border: 2px solid; */
-    padding: 20px;
-}
-#create{
-	position: fixed;
-	right: 0px;
-	top: 0px;
-	background: white;
-	padding: 5px;
-    background: #e6dddd;
-}
 
-#admin .row.header{
-	font-weight: bold;
-}
-/*
-#edit{
-    border: 3px solid red;
-} */
-.admin-action{
-	display: inline-block;
-}
-#admin .team-manager{
-/*     border: 1px solid green; */
-}
-#admin .tournament{
-/*     border: 1px solid lightblue;	 */
-}
 
 .admin-section{
 	color: #3163ec;
 	text-align: left;
 }
-.tournament-result:nth-of-type(even){
-	background: #e6e6fd;
-}
+
 .tournament-result{
 /* 	padding: 15px 5px; */
 	cursor: pointer;
-}
-.row:hover{
-	background: #adadd8 !important;
 }
 .clarification{
 	font-style: italic;
 }
 
-#tournament,
+/* #tournament,
 #team,
 #player,
-#team-registrations{
+#team-registrations{ */
+.main-content{
 	margin-top: 50px;
 	padding: 20px;
-}
-
-#tournament .row,
-#team .row,
-#admin .row,
-#team-registrations a.team.row{
-	padding: 15px 5px;
-
-}
-
-#tournament .row:nth-of-type(odd),
-#team .row:nth-of-type(odd){
-	background: rgba(0, 0, 0, .25);
 }
 
 .main-info{
@@ -299,10 +236,6 @@ input.button[type=submit]{
 	color: white;
 }
 
-#auth-area{
-	padding: 10px 0;
-	text-align: right;
-}
 
 @media screen and (max-width: 800px){
 	.column-2,

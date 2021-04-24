@@ -1,0 +1,73 @@
+#admin{
+	margin-left: 50px;
+	max-width: calc(100% - 50px);
+	margin-top: 80px;
+    padding: 20px;
+/*     border: 2px solid green; */
+}
+#account{
+	position: fixed;
+	right: 0px;
+	top: 0px;
+	background: white;
+	padding: 5px;
+    background: #e6dddd;
+/*     border: 2px solid red;    */
+}
+
+#create{
+	padding: 10px;
+/*     border: 2px solid yellow; */
+}
+
+.admin-action{
+	margin: 5px 0;
+}
+
+#admin .row.header{
+	font-weight: bold;
+}
+#admin .team-manager{
+/*     border: 1px solid green; */
+}
+#admin .tournament{
+/*     border: 1px solid lightblue;	 */
+}
+
+
+#nav-toggle{
+    position: absolute;
+    background: #e6dddd;
+    width: 50px;
+    height: 50px;
+	margin-bottom: 20px;
+	cursor: pointer;
+	user-select: none;
+	font-weight: bold;
+}
+
+#nav-menu{
+	position: fixed;
+	z-index: 9;
+	width: 120px;
+	display: none;
+	top: 50px;
+	left: 0px;
+	user-select: none;
+	background: #e6dddd;
+}
+.nav-item{
+	padding: 20px 10px; 
+	display: inline-block;
+}
+.async-item{
+	display: block;
+	padding: 15px 10px;
+	font-weight: bold;
+}
+
+
+#auth-area{
+	padding: 10px 0;
+	text-align: right;
+}

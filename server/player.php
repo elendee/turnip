@@ -24,27 +24,26 @@ require_once 'head.php';
 
 <body class="<?php echo 'role-' . ( isset( $_SESSION['role'] ) ? $_SESSION['role'] : 'none' ); ?>">
 
-	<?php require_once './includes/nav_menu.php' ?>
-	<?php require_once './includes/account_menu.php' ?>
+	<?php require_once './includes/header.php' ?>
 
-	<div id='player'>
+	<div id='player' class='main-content'>
 		<h3 class='page-category'><span class='category'>player:</span> <?php echo $player['name'] .  ' ' . $player['surname']; ?></h3>
 		<?php 
 		echo '<div><b>position:</b>' . $player['position'] . '</div>'; 
-		if( $is_admin ) echo '<div><b>email:</b>' . $player['email'] . '</div>'; 
+		if( $is_admin ){
+			echo '<div><b>email:</b>' . $player['email'] . '</div>'; 
+			echo '<div class="align-center"><div id="add-to-team" class="button">add to team</div></div>';
+		}
 		?>
 	</div>
 
-	<div id='team-registrations'>
+	<div id='team-registrations' class='main-content'>
 		<?php
 			if( $results2 ){
 				echo '<h4>player is registered on teams:</h4>';
 			}
 			foreach ($results2 as $key => $value) {
 				echo '<a class="team row" href="' . $env->public_root . '/server/team.php?t=' . $value['id'] . '">';
-				// if( $is_admin ){
-				// 	echo '<div class="delete button" data-type="registration" data-team_key="' . $value['id'] . '" data-tourney_key="' . $_GET['t'] . '">x</div>';
-				// }
 				echo '<div class="column column-2">' . $value['name'] . '</div>';
 				echo '<div class="column column-2">' . $value['user_name'] . '</div>';
 				echo '</a>';

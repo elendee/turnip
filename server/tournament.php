@@ -28,10 +28,9 @@ require_once 'head.php';
 
 <body class="<?php echo 'role-' . ( isset( $_SESSION['role'] ) ? $_SESSION['role'] : 'none' ); ?>">
 
-	<?php require_once './includes/nav_menu.php' ?>
-	<?php require_once './includes/account_menu.php' ?>
+	<?php require_once './includes/header.php' ?>
 
-	<div id='tournament'>
+	<div id='tournament' class='main-content'>
 		<div class='main-info'>
 			<div class='main-info-liner'>
 				<h3 class='page-category'><span class='category'>tournament:</span> <?php echo $tourney['name']; ?></h3>

@@ -1,22 +1,47 @@
-<?php
-	// require_once './global_config.php';
-	// echo '<h1>' . $_SESSION['id'] . '</h1>';
-?>
 
-<div id='alert-contain'></div>
 <div id='nav-toggle' class='flex-wrapper'>
 	menu
 	<div id='nav-menu'>
-		<a class='nav-item' href='/'>tournaments</a>
-		<a class='nav-item' href='/teams.php'>teams</a>
-		<a class='nav-item' href='/players.php'>players</a>
+		<a class='nav-item' href='<?php echo $env->public_root . '/' ?>'>tournaments</a>
+		<a class='nav-item' href='<?php echo $env->public_root . '/server/teams.php' ?>'>teams</a>
+		<a class='nav-item' href='<?php echo $env->public_root . '/server/players.php' ?>'>players</a>
+
+		<?php 
+
+		if( $is_logged ){
+
+			echo '<div id="create">';
+
+			echo '<h4>create:</h4>';
+
+			if( $is_admin ){ 
+
+		?>
+
+			<div class='admin-action'><div class='team-manager button'>manager</div></div>
+			<div class='admin-action'><div class='tournament button'>tournament</div></div>
+
+		<?php
+
+			}
+
+			if( $is_logged ){
+
+		?>
+
+				<div class='admin-action'><div class='team button'>team</div></div>
+				<div class='admin-action'><div class='player button'>player</div></div>
+
+		<?php 
+				
+			} 
+
+		echo '</div>';
+
+		}
+		
+		?>
+
 	</div>
-</div>
 
-<div class='site-title'>
-	<a href='<?php echo $env->public_root ?>'><h2><?php echo $env->site_title; ?></h2></a>
-	<div class='clarification'>(click to view tournaments)</div>
-</div>
-
-<div id='content'>
 </div>

@@ -150,19 +150,18 @@ const init = () => {
 	}	
 
 	nav_toggle.addEventListener('click', () => {
-		alert('ya')
 		if( nav_menu.classList.contains('toggled') ){ // for mobile
 			nav_menu.classList.remove('toggled')
 		}
 	})
 
-	// nav_toggle.addEventListener('mouseover', () => {
-	// 	nav_menu.classList.add('toggled')
-	// })
+	nav_toggle.addEventListener('mouseover', () => {
+		nav_menu.classList.add('toggled')
+	})
 
-	// nav_toggle.addEventListener('mouseout', () => {
-	// 		nav_menu.classList.remove('toggled')
-	// })
+	nav_toggle.addEventListener('mouseout', () => {
+			nav_menu.classList.remove('toggled')
+	})
 }
 
 

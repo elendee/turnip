@@ -1,4 +1,4 @@
-<div id='create'>
+<div id='account'>
 
 	<div id='account'>
 		<?php
@@ -10,37 +10,6 @@
 		}
 		?>
 	</div>
-	
-	<?php if( $is_logged ) echo '<h4>create:</h4>'; ?>
-
-	<?php if( $is_admin ){ ?>
-	<!-- isset( $_SESSION['role'] ) && $_SESSION['role'] === 'admin' -->
-	<div class='team-manager admin-action button'>
-		manager
-	</div>
-	<div class='tournament admin-action button'>
-		tournament
-	</div>
-
-	<?php 
-	}
-
-	if( $is_logged ){
-
-	?>
-
-		<div class='team admin-action button'>
-			team
-		</div>
-		<div class='player admin-action button'>
-			player
-		</div>
-
-	<?php 
-	
-	} 
-	
-	?>
 
 	<div id='auth-area'>
 		<?php
