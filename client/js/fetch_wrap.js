@@ -1,4 +1,4 @@
-import ui from './ui.js?v=4'
+import ui from './ui.js?v=5'
 
 export default ( url, method, body, no_spinner ) => {
 

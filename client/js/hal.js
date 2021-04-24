@@ -1,5 +1,5 @@
 
-import env from './env.js?v=4'
+import env from './env.js?v=5'
 
 const alert_contain = document.getElementById('alert-contain')
 

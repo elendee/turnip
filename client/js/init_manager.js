@@ -1,9 +1,9 @@
-import { Modal } from './Modal.js?v=4'
-import fetch_wrap from './fetch_wrap.js?v=4'
-import * as lib from './lib.js?v=4'
-import hal from './hal.js?v=4'
-import env from './env.js?v=4'
-import nav from './nav.js?v=4'
+import { Modal } from './Modal.js?v=5'
+import fetch_wrap from './fetch_wrap.js?v=5'
+import * as lib from './lib.js?v=5'
+import hal from './hal.js?v=5'
+import env from './env.js?v=5'
+import nav from './nav.js?v=5'
 
 const admin = document.querySelector('#admin')
 const create = document.querySelector('#create')
