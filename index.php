@@ -6,7 +6,7 @@
 	<body class="<?php echo 'role-' . ( isset( $_SESSION['role'] ) ? $_SESSION['role'] : 'none' ); ?>">
 		<?php include_once 'server/includes/header.php'; ?>
 		<?php include_once 'server/splash.php'; ?>
-	    <script src='client/js/init_manager.js?v=6' type='module'></script>
+	    <script src='client/js/init_manager.js?v=7' type='module'></script>
 	</body>
 
 </html>
