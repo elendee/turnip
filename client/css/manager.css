@@ -240,8 +240,8 @@ input.button[type=submit]{
 
 
 @media screen and (max-width: 800px){
-	.column-2,
 	.column-3{
         max-width: 100%;
 	}
 }
+
