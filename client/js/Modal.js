@@ -1,4 +1,4 @@
-//import 	BROKER from '../../EventBroker.js?v=5'
+//import 	BROKER from '../../EventBroker.js?v=6'
 
 
 class Modal {

@@ -1,8 +1,8 @@
-import { Modal } from './Modal.js?v=5'
-import * as lib from './lib.js?v=5'
-import hal from './hal.js?v=5'
-import env from './env.js?v=5'
-import fetch_wrap from './fetch_wrap.js?v=5'
+import { Modal } from './Modal.js?v=6'
+import * as lib from './lib.js?v=6'
+import hal from './hal.js?v=6'
+import env from './env.js?v=6'
+import fetch_wrap from './fetch_wrap.js?v=6'
 
 
 const init = () => {
@@ -153,9 +153,11 @@ const init = () => {
 	}	
 
 	nav_toggle.addEventListener('click', () => {
-		if( nav_menu.classList.contains('toggled') ){ // for mobile
-			nav_menu.classList.remove('toggled')
-		}
+		setTimeout(()=>{
+			if( nav_menu.classList.contains('toggled') ){ // for mobile
+				nav_menu.classList.remove('toggled')
+			}
+		}, 50)
 	})
 
 	nav_toggle.addEventListener('mouseover', () => {
@@ -163,14 +165,16 @@ const init = () => {
 	})
 
 	nav_toggle.addEventListener('mouseout', () => {
-			nav_menu.classList.remove('toggled')
+		nav_menu.classList.remove('toggled')
 	})
 
 
 	acc_toggle.addEventListener('click', () => {
-		if( acc_menu.classList.contains('toggled') ){ // for mobile
-			acc_menu.classList.remove('toggled')
-		}
+		setTimeout(()=>{
+			if( acc_menu.classList.contains('toggled') ){ // for mobile
+				acc_menu.classList.remove('toggled')
+			}
+		}, 50)
 	})
 
 	acc_toggle.addEventListener('mouseover', () => {
