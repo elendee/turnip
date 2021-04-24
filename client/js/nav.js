@@ -1,8 +1,8 @@
-import { Modal } from './Modal.js?v=3'
-import * as lib from './lib.js?v=3'
-import hal from './hal.js?v=3'
-import env from './env.js?v=3'
-import fetch_wrap from './fetch_wrap.js?v=3'
+import { Modal } from './Modal.js?v=4'
+import * as lib from './lib.js?v=4'
+import hal from './hal.js?v=4'
+import env from './env.js?v=4'
+import fetch_wrap from './fetch_wrap.js?v=4'
 
 
 const init = () => {
@@ -154,18 +154,15 @@ const init = () => {
 		if( nav_menu.classList.contains('toggled') ){ // for mobile
 			nav_menu.classList.remove('toggled')
 		}
-		// else{
-			// nav_menu.classList.add('toggled')
-		// }
 	})
 
-	nav_toggle.addEventListener('mouseover', () => {
-		nav_menu.classList.add('toggled')
-	})
+	// nav_toggle.addEventListener('mouseover', () => {
+	// 	nav_menu.classList.add('toggled')
+	// })
 
-	nav_toggle.addEventListener('mouseout', () => {
-			nav_menu.classList.remove('toggled')
-	})
+	// nav_toggle.addEventListener('mouseout', () => {
+	// 		nav_menu.classList.remove('toggled')
+	// })
 }
 
 
