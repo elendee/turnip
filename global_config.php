@@ -5,8 +5,7 @@ set_include_path( __DIR__ . ':' . __DIR__ . '/server/includes:' . __DIR__ . '/se
 $root = $_SERVER["DOCUMENT_ROOT"];
 require_once __DIR__ . '/.env.php';
 
-// $is_logged = isset( $_SESSION['id'] );
-$is_admin = isset( $_SESSION['role'] ) && $_SESSION['role'] === 'admin' ? true : false;
+$is_admin = isset($_SESSION['email'] ) && in_array( $_SESSION['email'], $env->admins );
 $is_manager = isset( $_SESSION['role'] ) && $_SESSION['role'] === 'manager' ? true : false;
 $is_logged = ( $is_admin || $is_manager ) ? true : false;
 
@@ -54,4 +53,16 @@ function header_row( ...$values ){
 	}
 	$row = $row . '</div>';
 	return $row;
+}
+
+function random_hex( $length ){
+	$hex = '';
+	for( $i = 0; $i < $length; $i++ ){
+		$hex .= dechex(rand(0, 15));
+	}
+	return $hex;
+}
+
+function sql_datetime(){
+	return gmdate( 'Y-m-d H:i:s', time() );
 }

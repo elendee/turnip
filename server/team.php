@@ -22,15 +22,13 @@ $sql4 = $pdo->prepare('SELECT * FROM users WHERE id=? AND role="manager" LIMIT 1
 $sql4->execute([ $team ? $team['manager_key'] : false ]);
 $results4 = $sql4->fetchAll();
 if( $results4 ){
-	$manager = $results4[0]['name'];
+	$manager = $results4[0];//['name'];
 }
-
 require_once 'head.php'; 
 
 ?>
 
 <body class="<?php echo 'role-' . ( isset( $_SESSION['role'] ) ? $_SESSION['role'] : 'none' ); ?>">
-
 
 	<?php require_once './includes/header.php' ?>
 
@@ -38,17 +36,22 @@ require_once 'head.php';
 		<h3 class='page-category'><span class='category'>team:</span> <?php echo $team['name']; ?></h3>
 		<?php
 			if( isset( $manager ) ){
-				echo '<div style="text-align: center">manager: ' . $manager . '</div>';
+				echo '<div style="text-align: center">manager: <a href="' . $env->public_root . '/server/account.php?n=' . $manager['id'] . '">' . $manager['name'] . '</a></div>';
 			}
 		?>
-		<?php if( isset( $team ) && $is_logged && $team['manager_key'] === $_SESSION['id'] ){ ?>
+		<?php 
+		if( isset( $team ) ){
+			$is_team_manager = $is_logged && $team['manager_key'] === $_SESSION['id'];
+			if( $is_team_manager || $is_admin ){ 
+		?>
 		<div id='add-player'>
 			<div class='button'>add a player</div>
 		</div>
 		<?php 
-		} 
+			} 
+		}
 		
-		echo '<h4>team ' . $team['name'] . 'players:</h4>';
+		echo '<h4>team ' . $team['name'] . ' players:</h4>';
 		echo header_row('name', 'position');
 
 		foreach ($results3 as $key => $value) {

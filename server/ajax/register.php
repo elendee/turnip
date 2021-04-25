@@ -31,15 +31,25 @@ echo json_encode($res);
 
 function register($email, $pw, $name){
 
+	if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		return 'invalid email';
+    }
+
 	try{
 
 		global $pdo;
 
 		$hash = hash_func($pw);
 
-		$sql = $pdo->prepare('INSERT INTO users (email, password, name, role, created ) VALUES (?, ?, ?, ?, ?)'); 	
+		$confirm_code = random_hex(12);
+
+		$now = sql_datetime();
+
+		_LOG('entering: ', $now);
+
+		$sql = $pdo->prepare('INSERT INTO users (email, password, name, role, created, confirmed, confirm_code, confirm_set ) VALUES (?, ?, ?, ?, ?, 0, ?, ?)');
 			
-		if( $sql->execute( [$email, $hash, $name, 'manager', date( 'Y-m-d-h-m-s', time() ) ]) ){
+		if( $sql->execute( [$email, $hash, $name, 'manager', $now, $confirm_code, $now ]) ){
 
 			$_SESSION['id'] = $pdo->lastInsertId();
 			$_SESSION['email'] = $email;
