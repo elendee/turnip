@@ -1,6 +1,7 @@
 <?php
 
 include_once '../../global_config.php';
+// include_once '../../.env.php';
 
 function hash_func($password) {
     $hash = password_hash($password, PASSWORD_BCRYPT);
@@ -31,6 +32,8 @@ echo json_encode($res);
 
 function register($email, $pw, $name){
 
+	global $env;
+
 	if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		return 'invalid email';
     }
@@ -43,7 +46,7 @@ function register($email, $pw, $name){
 
 		$confirm_code = random_hex(12);
 
-		$now = sql_datetime();
+		$now = sql_datetime(false);
 
 		_LOG('entering: ', $now);
 
@@ -55,6 +58,12 @@ function register($email, $pw, $name){
 			$_SESSION['email'] = $email;
 			$_SESSION['name'] = $name;
 			$_SESSION['role'] = 'manager';
+			$_SESSION['confirmed'] = false;
+
+			$to = $_SESSION['email'];
+			$subject = 'Welcome to ' . $env->site_title . '!';
+			$body = welcome_email( $_SESSION, $confirm_code ); // $env
+			mail_wrap($to, $subject, $body);
 
 			return true;
 			

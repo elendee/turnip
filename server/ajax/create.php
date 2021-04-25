@@ -26,7 +26,7 @@ switch ($type) {
 		}else{
 			$mkey = false;
 		}
-		$sql->execute([ $post->name, $mkey, sql_datetime() ]);
+		$sql->execute([ $post->name, $mkey, sql_datetime( false ) ]);
 		$res->success = true;
 		break;
 
@@ -37,20 +37,20 @@ switch ($type) {
 			$hash = false;
 		}
 		$sql = $pdo->prepare('INSERT INTO users ( name, email, password, role, created ) VALUES ( ?, ?, ?, "manager", ?)' );
-		$sql->execute([ $post->name, $post->email, $hash, sql_datetime() ]); 
+		$sql->execute([ $post->name, $post->email, $hash, sql_datetime( false ) ]); 
 		$res->success = true;
 		break;
 
 	case 'player':
 		$sql = $pdo->prepare('INSERT INTO players ( name, surname, email, position, created ) VALUES ( ?, ?, ?, ?, ?)' );
-		$sql->execute([ $post->name, $post->surname, $post->email, $post->position, sql_datetime() ]); 
+		$sql->execute([ $post->name, $post->surname, $post->email, $post->position, sql_datetime( false ) ]); 
 		$res->success = true;
 		break;
 
 	case 'registration':
 		try{
 			$sql = $pdo->prepare('INSERT INTO registrations ( team_key, tourney_key, created ) VALUES ( ?, ?, ? )' );
-			$sql->execute([ $post->team_key, $post->tourney_key, sql_datetime() ]);
+			$sql->execute([ $post->team_key, $post->tourney_key, sql_datetime( false ) ]);
 			$res->success = true;
 		}catch( PDOException $e ){
 			if(strpos($e->getMessage(), 'Duplicate') > 0 ){
@@ -65,7 +65,7 @@ switch ($type) {
 	case 'player-registration':
 		try{
 			$sql = $pdo->prepare('INSERT INTO player_registrations ( team_key, player_key, created ) VALUES ( ?, ?, ? )' );
-			$sql->execute([ $post->team_key, $post->player_key, sql_datetime() ]);
+			$sql->execute([ $post->team_key, $post->player_key, sql_datetime( false ) ]);
 			$res->success = true;
 		}catch( PDOException $e ){
 			if(strpos($e->getMessage(), 'Duplicate') > 0 ){
