@@ -14,10 +14,10 @@ $sql3 = $pdo->prepare('
 	SELECT users.name user_name, teams.name, teams.id 
 	FROM registrations reg 
 	INNER JOIN teams ON teams.id=reg.team_key 
-	INNER JOIN users ON users.id=teams.manager_key 
+	LEFT JOIN users ON users.id=teams.manager_key 
 	WHERE reg.tourney_key=?');
 
-$sql3->execute([ $_GET['t'] ]);
+$success = $sql3->execute([ $_GET['t'] ]);
 $results3 = $sql3->fetchAll();
 
 require_once 'head.php'; 
@@ -36,7 +36,7 @@ require_once 'head.php';
 				<h4 class='align-center'>location: <?php echo $tourney['location']; ?></h4>
 			</div>
 		</div>
-		<?php if( isset( $_SESSION['role'] ) && $_SESSION['role'] === 'admin' ){ ?>
+		<?php if( is_admin( $_SESSION ) ){ ?>
 		<div id='add-team'>
 			<div class='button'>add a team</div>
 		</div>

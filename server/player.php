@@ -41,8 +41,10 @@ require_once 'head.php';
 		<?php
 			if( $results2 ){
 				echo '<h4>player is registered on teams:</h4>';
+				echo header_row('team', 'manager');
+			}else{
+				echo '<h4>player not currently registed to any teams</h4>';
 			}
-			echo header_row('team', 'manager');
 			foreach ($results2 as $key => $value) {
 				echo '<div class="team row">';
 				echo '<div class="column column-2"><a href="' . $env->public_root . '/server/team.php?t=' . $value['id'] . '">' . $value['name'] . '</a></div>';

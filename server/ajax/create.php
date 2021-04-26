@@ -20,7 +20,7 @@ switch ($type) {
 		if( isset( $_SESSION['role'] ) ){
 			if( $_SESSION['role'] === 'manager' ){
 				$mkey = $_SESSION['id'];
-			}else if( $_SESSION['role'] === 'admin'){
+			}else if( is_admin( $_SESSION ) ){
 				$mkey = $post->manager_key;
 			}
 		}else{

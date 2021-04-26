@@ -195,11 +195,6 @@ input.button[type=submit]{
 }
 
 
-
-.tournament-result{
-/* 	padding: 15px 5px; */
-	cursor: pointer;
-}
 .clarification{
 	font-style: italic;
 }
