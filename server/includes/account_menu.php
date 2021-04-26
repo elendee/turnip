@@ -8,7 +8,7 @@
 		if( $is_logged ){
 			echo '<div class="account-name"><b>name</b>: ' . $_SESSION['name'] . '</div>';
 			echo '<div class="account-email"><b>email</b>: ' . $_SESSION['email'] . '</div>';
-			echo '<div class="account-role"><b>role</b>: ' . $_SESSION['role'] . '</div>';
+			echo '<div class="account-role"><b>role</b>: ' . ( $is_admin ? 'admin' : $_SESSION['role'] ) . '</div>';
 		}
 		?>
 
