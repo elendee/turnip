@@ -72,8 +72,10 @@ function sql_datetime( $time ){
 
 function mail_wrap( $to, $subject, $body ){
 	global $env;
+	$headers = "MIME-Version: 1.0" . "\n";
+	$headers .= "Content-type:text/html;charset=UTF-8" . "\n";
 	if( isset( $env->PRODUCTION ) && $env->PRODUCTION === true ){
-		mail( $to, $subject, $body );
+		mail( $to, $subject, $body, $headers );
 	}else{
 		_LOG('SKIP local email: ', $to, $subject, $body);
 	}
