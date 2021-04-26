@@ -16,6 +16,7 @@
 			<?php
 			if( !$is_logged ) echo '<a class="async-item" href="/login">login</a>'; 
 			if( !$is_logged ) echo '<a class="async-item" href="/register">register</a>'; 
+			if( $is_logged ) echo '<a href="' . $env->public_root . '/server/reset_password.php">reset password</a>';
 			if( $is_logged ) echo '<a class="async-item" href="/logout">logout</a>'; 
 			?>
 		</div>

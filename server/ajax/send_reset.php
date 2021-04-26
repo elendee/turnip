@@ -37,7 +37,7 @@ if( $success && $rowCount > 0 ){
 
 	$res->success = true;
 	if( !$env->PRODUCTION ){
-		$link = $env->public_root . '/server/reset_set.php?e=' . $email;
+		$link = $env->public_root . '/server/reset_verify.php?e=' . $email;
 		$res->msg = 'local dev link: <a href="' . $link . '">reset link</a> code: ' . $new_code;
 		_LOG('wot yea');
 	}else{

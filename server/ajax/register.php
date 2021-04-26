@@ -29,7 +29,7 @@ function register($email, $pw, $name){
 
 	global $env;
 
-	if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+	if( !filter_var($email, FILTER_VALIDATE_EMAIL) ) {
 		return 'invalid email';
     }
 
@@ -43,8 +43,6 @@ function register($email, $pw, $name){
 
 		$now = sql_datetime(false);
 
-		_LOG('entering: ', $now);
-
 		$sql = $pdo->prepare('INSERT INTO users (email, password, name, role, created, confirmed, confirm_code, confirm_set ) VALUES (?, ?, ?, ?, ?, 0, ?, ?)');
 			
 		if( $sql->execute( [$email, $hash, $name, 'manager', $now, $confirm_code, $now ]) ){
@@ -57,7 +55,7 @@ function register($email, $pw, $name){
 
 			$to = $_SESSION['email'];
 			$subject = $env->site_title . ' confirm account';
-			$body = welcome_email( $_SESSION, $confirm_code ); // $env
+			$body = confirm_email( $_SESSION, $confirm_code ); // $env // , $confirm_code
 			mail_wrap($to, $subject, $body);
 
 			return true;

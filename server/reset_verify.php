@@ -16,11 +16,11 @@ require_once 'head.php';
 
 	<?php require_once './includes/header.php' ?>
 
-	<div id='reset-set' class='main-content'>
+	<div id='reset-verify' class='main-content'>
 
 		<form class='turnip-form'>
-			<label>confirmation code:</label><br>
-			<input type='text' placeholder='enter confirmation code here'>
+			<label>reset code:</label><br>
+			<input type='text' placeholder='enter reset code here'>
 			<br>
 			<input type="submit" value='submit' class='button'>
 		</form>

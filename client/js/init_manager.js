@@ -11,7 +11,7 @@ const add_team = document.querySelector('#add-team .button')
 const add_player = document.querySelector('#add-player .button')
 const deletes = document.querySelectorAll('.delete')
 const reset_request = document.querySelector('#reset-request form')
-const reset_set = document.querySelector('#reset-set form')
+const reset_verify = document.querySelector('#reset-verify form')
 const reset_password = document.querySelector('#reset-password form')
 const confirm_code = document.querySelector('#confirm-code form')
 
@@ -440,14 +440,17 @@ if( reset_request ){
 	})
 }
 
-if( reset_set ){
-	reset_set.addEventListener('submit', e => {
+if( reset_verify ){
+	const label = reset_verify.querySelector('label')
+	const email = location.href.substr( location.href.indexOf('?e=') + 3 )
+	label.innerText = 'reset code for ' + email + ': '
+	reset_verify.addEventListener('submit', e => {
 		e.preventDefault()
 		ui.spinner.show()
-		const code = reset_set.querySelector('input[type=text]')
+		const code = reset_verify.querySelector('input[type=text]')
 		fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/set_reset.php', 'post', {
 			code: code.value.trim(),
-			email: location.href.substr( location.href.indexOf('?e=') + 3 ),
+			email: email,
 		})
 		.then( res => {
 			if( res.success ){
@@ -487,18 +490,22 @@ if( reset_password ){
 
 
 if( confirm_code ){
+	const label = confirm_code.querySelector('label')
+	const query_email = location.href.substr( location.href.indexOf('?e=') + 3)
+	label.innerText = 'confirm code for ' + query_email + ': '
 	confirm_code.addEventListener('submit', e => {
 		e.preventDefault()
 		ui.spinner.show()
 		fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/confirm_code.php', 'post', {
-			password: confirm_code.querySelector('input').value.trim(),
+			code: confirm_code.querySelector('input').value.trim(),
+			email: query_email,
 		})
 		.then( res => {
 			if( res.success ){
 				hal('success', 'success', 3000)
 				ui.spinner.hide()
 				setTimeout(()=>{
-					location.reload()
+					location.assign( env.PUBLIC_ROOT )
 				}, 500)
 			}else{
 				ui.reject( res, res.msg || 'reset failed', 3000)

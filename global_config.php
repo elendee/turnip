@@ -6,7 +6,7 @@ $root = $_SERVER["DOCUMENT_ROOT"];
 require_once __DIR__ . '/.env.php';
 require_once __DIR__ . '/server/includes/mailers.php';
 
-if( !isset( $_SESSION['confirmed'] ) || $_SESSION['confirmed'] !== true ){
+if( !isset( $_SESSION['confirmed'] ) || !$_SESSION['confirmed'] ){
 	$is_admin = false;
 	$is_manager = false;
 	$is_logged = false;

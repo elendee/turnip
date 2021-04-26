@@ -51,7 +51,7 @@ const init = () => {
 						})
 						.then( res => {
 							if( res.success ){
-								location.reload()
+								location.assign( env.PUBLIC_ROOT )
 							}else{
 								let time
 								time = res.msg.match(/not confirmed/) ? false : 5000
@@ -146,7 +146,7 @@ const init = () => {
 					fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/logout.php', 'post', {} )
 					.then( res => {
 						if( res.success ){
-							location.reload()
+							location.assign( env.PUBLIC_ROOT )
 						}else{
 							hal('error', res.msg || 'error logging out', 5000 )
 							console.log( res )

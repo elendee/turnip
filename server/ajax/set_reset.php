@@ -24,10 +24,23 @@ $success = $sql->execute([ $now, $email, $code ]);
 $rowCount = $sql->rowCount();
 if( $success && $rowCount > 0 ){
 
-	$to = $email;
-	$subject = $env->site_title . ' password reset';
-	$body = reset_email( $email, $new_code );
-	mail_wrap( $to, $subject, $body );
+	// $to = $email;
+	// $subject = $env->site_title . ' password reset';
+	// $body = reset_email( $email, $new_code );
+	// mail_wrap( $to, $subject, $body );
+	$sql2 = $pdo->prepare('SELECT * FROM users WHERE email=?');
+	$succes2 = $sql2->execute( [$email] );
+	$results2 = $sql2->fetchAll();
+	if( !$results2 ){
+		return json_reject('failed to confirm', $res );
+	}
+	$user = $results2[0];
+
+	$_SESSION['id'] = $user['id'];
+	$_SESSION['email'] = $user['email'];
+	$_SESSION['name'] = $user['name'];
+	$_SESSION['role'] = $user['role'];
+	$_SESSION['confirmed'] = $user['confirmed'];
 
 	$res->success = true;
 
