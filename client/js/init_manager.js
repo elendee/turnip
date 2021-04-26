@@ -9,6 +9,7 @@ import nav from './nav.js?v=10'
 const create = document.querySelector('#create')
 const add_team = document.querySelector('#add-team .button')
 const add_player = document.querySelector('#add-player .button')
+const add_to_team = document.querySelector('#add-to-team .button')
 const deletes = document.querySelectorAll('.delete')
 const reset_request = document.querySelector('#reset-request form')
 const reset_verify = document.querySelector('#reset-verify form')
@@ -366,6 +367,54 @@ if( add_player ){
 				type: 'player-registration',
 				player_key: select.value,
 				team_key: location.href.substr( location.href.indexOf('?t=') + 3, 1 )
+			})
+			.then( res => {
+				if( res.success ){
+					hal('success', 'success', 3000 )
+					setTimeout(()=>{
+						window.location.reload()
+					}, 500 )
+				}else{	
+					ui.reject( res, res.msg || 'error assigning', 3000 )
+				}
+			})
+			.catch( err => {
+				ui.reject( err, res.msg || 'error assigning', 3000 )
+			})
+		})
+		document.body.appendChild( modal.ele )
+	})
+}
+
+
+if( add_to_team ){
+	add_to_team.addEventListener('click', () => {
+		const modal = new Modal({
+			type: 'add-to-team'
+		})
+		const form = document.createElement('div')
+		const title = document.createElement('h3')
+		title.classList.add('modal-title')
+		title.innerHTML = 'add player to a team'
+		const select = document.createElement('select')
+		fill_select( select, 'teams')
+		const br = document.createElement('br')
+		const submit = document.createElement('input')
+		submit.type = 'submit'
+		submit.classList.add('button')
+		submit.value = 'add'
+		form.appendChild( title )
+		form.appendChild( select )
+		form.appendChild( br )
+		form.appendChild( submit )
+		modal.content.appendChild( form )
+		document.body.appendChild( modal.ele )
+		submit.addEventListener('click', () => {
+			ui.spinner.show()
+			fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
+				type: 'player-registration',
+				team_key: select.value,
+				player_key: location.href.substr( location.href.indexOf('?t=') + 3, 1 )
 			})
 			.then( res => {
 				if( res.success ){

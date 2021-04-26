@@ -13,7 +13,7 @@ if( !$results ){
 $sql2 = $pdo->prepare('
 	SELECT teams.name, teams.id, users.name user_name FROM player_registrations reg 
 	INNER JOIN teams ON teams.id=reg.team_key 
-	INNER JOIN users ON users.id=teams.manager_key
+	LEFT JOIN users ON users.id=teams.manager_key
 	WHERE reg.player_key=?');
 $sql2->execute([ $_GET['t'] ]);
 $results2 = $sql2->fetchAll();
@@ -32,7 +32,7 @@ require_once 'head.php';
 		echo '<div><b>position:</b>' . $player['position'] . '</div>'; 
 		if( is_admin( $_SESSION ) ){
 			echo '<div><b>email:</b>' . $player['email'] . '</div>'; 
-			echo '<div class="align-center"><div id="add-to-team" class="button">add to team</div></div>';
+			echo '<div class="align-center"><div id="add-to-team"><div class="button">add to team</div></div>';
 		}
 		?>
 	</div>

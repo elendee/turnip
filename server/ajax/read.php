@@ -26,9 +26,6 @@ if( isset( $post->table ) ){
 	if( $sql ){;
 		$res->success = $sql->execute();
 		$res->results = $sql->fetchAll();
-		foreach ($res->results as $key => $value) {
-			_LOG($value['surname']);
-		}
 	}
 
 }
