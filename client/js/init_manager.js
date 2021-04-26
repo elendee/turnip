@@ -1,6 +1,6 @@
 import { Modal } from './Modal.js?v=10'
 import fetch_wrap from './fetch_wrap.js?v=10'
-// import * as lib from './lib.js?v=10'
+import * as lib from './lib.js?v=10'
 import hal from './hal.js?v=10'
 import ui from './ui.js?v=10'
 import env from './env.js?v=10'
@@ -47,6 +47,9 @@ if( create ){
 			date.placeholder = 'tournament date'
 			const description = document.createElement('textarea')
 			description.placeholder = 'tournament description (text only)'
+			const link = document.createElement('input')
+			link.type ='text'
+			link.placeholder = 'link (optional)'
 			const submit = document.createElement('input')
 			submit.classList.add('button')
 			submit.type = 'submit'
@@ -57,6 +60,8 @@ if( create ){
 			form.appendChild( date )
 			form.appendChild( description )
 			form.appendChild( br )
+			form.appendChild( link )
+			form.appendChild( br.cloneNode() )
 			form.appendChild( submit )
 			modal.content.appendChild( form )
 			document.body.appendChild( modal.ele )
@@ -66,11 +71,13 @@ if( create ){
 				const n = name.value.trim()
 				const d = date.value.trim()
 				const l = description.value.trim()
+				const lnk = link.value.trim()
 				fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
 					type: 'tournament',
 					date: d,
 					description: l,
 					name: n,
+					link: lnk,
 				})
 				.then( res => {
 					if( res.success ){
@@ -172,7 +179,7 @@ if( create ){
 				man_label = document.createElement('label')
 				man_label.innerText = 'manager:'
 				manager = document.createElement('select')
-				fill_select( manager, 'managers' )			
+				fill_select( manager, 'managers', 'alphabetical', 1, 'surname' )
 			}
 			const submit = document.createElement('input')
 			submit.classList.add('button')
@@ -300,7 +307,7 @@ if( add_team ){
 		title.classList.add('modal-title')
 		title.innerHTML = 'pick a team:'
 		const select = document.createElement('select')
-		fill_select( select, 'teams')
+		fill_select( select, 'teams', 'alphabetical', 1, 'name')
 		const br = document.createElement('br')
 		const submit = document.createElement('input')
 		submit.type = 'submit'
@@ -348,7 +355,7 @@ if( add_player ){
 		title.classList.add('modal-title')
 		title.innerHTML = 'add a player to team ' + document.querySelector('#team h3').innerText.replace('team:', '') + ':'
 		const select = document.createElement('select')
-		fill_select( select, 'players')
+		fill_select( select, 'players', 'alphabetical', 1, 'surname')
 		const br = document.createElement('br')
 		const submit = document.createElement('input')
 		submit.type = 'submit'
@@ -396,7 +403,7 @@ if( add_to_team ){
 		title.classList.add('modal-title')
 		title.innerHTML = 'add player to a team'
 		const select = document.createElement('select')
-		fill_select( select, 'teams')
+		fill_select( select, 'teams', 'alphabetical', 1, 'name')
 		const br = document.createElement('br')
 		const submit = document.createElement('input')
 		submit.type = 'submit'
@@ -565,7 +572,7 @@ if( confirm_code ){
 	})
 }
 
-const fill_select = ( select, table ) => {
+const fill_select = ( select, table, type, direction, key ) => {
 
 	fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/read.php', 'post', {
 		table: table,
@@ -577,10 +584,15 @@ const fill_select = ( select, table ) => {
 			opt1.innerText = ''
 			opt1.selected = true
 			select.appendChild( opt1 )
-			for( const result of res.results ){
+			const sorted = lib.orderby( res.results, type, direction, key )
+			for( const result of sorted ){
 				const option = document.createElement('option')
 				option.value = result.id
-				option.innerText = result.name + ' ' + result.surname
+				if( key === 'surname' && result.name && result.surname ){
+					option.innerText = result.name + ' ' + result.surname
+				}else{
+					option.innerText = result[key]
+				}
 				select.appendChild( option )
 			}
 		}else{

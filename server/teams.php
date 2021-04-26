@@ -3,7 +3,7 @@
 require_once '../global_config.php'; 
 require_once 'head.php'; 
 
-$sql = $pdo->prepare('SELECT teams.id, teams.name, users.name user_name FROM teams INNER JOIN users ON teams.manager_key=users.id WHERE 1');
+$sql = $pdo->prepare('SELECT teams.id, teams.name, users.name user_name FROM teams LEFT JOIN users ON teams.manager_key=users.id WHERE 1');
 $sql->execute(); // [ $_GET['t'] ]
 $results = $sql->fetchAll();
 

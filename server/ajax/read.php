@@ -7,6 +7,12 @@ $sql = false;
 $res = new stdClass();
 $res->success = false;
 
+if( isset( $env->allow_origin ) ){ 
+	header('Access-Control-Allow-Origin: ' . $env->allow_origin );
+	header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+	header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept');	
+}
+
 if( isset( $post->table ) ){
 
 	switch( $post->table ){

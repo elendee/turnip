@@ -92,10 +92,3 @@
 	overflow-y: auto;
 }
 
-
-
-@media screen and (max-width: 800px){
-	.modal-close{
-		right: 0px;
-	}
-}
