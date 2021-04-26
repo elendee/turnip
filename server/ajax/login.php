@@ -10,7 +10,7 @@ $post = get_post();
 
 if( $is_logged ){ // isset( $_SESSION['id']
 	$res->success = true;
-	$res->msg = 'already logged in'];
+	$res->msg = 'already logged in';
 	_LOG('already logged');
 }else{
 	if( !isset( $post->email ) || !isset( $post->password ) ){
@@ -32,6 +32,7 @@ if( $is_logged ){ // isset( $_SESSION['id']
 					$_SESSION['email'] = $user['email'];
 					$_SESSION['name'] = $user['name'];
 					$_SESSION['role'] = $user['role'];
+					$_SESSION['confirmed'] = true;
 					$res->success = true;
 				}else{
 					$res->success = false;

@@ -1,12 +1,7 @@
 <?php
 
 include_once '../../global_config.php';
-// include_once '../../.env.php';
-
-function hash_func($password) {
-    $hash = password_hash($password, PASSWORD_BCRYPT);
-    return $hash;
-}		
+// include_once '../../.env.php';	
 
 $post = get_post();
 $res = new stdClass();
@@ -61,7 +56,7 @@ function register($email, $pw, $name){
 			$_SESSION['confirmed'] = false;
 
 			$to = $_SESSION['email'];
-			$subject = 'Welcome to ' . $env->site_title . '!';
+			$subject = $env->site_title . ' confirm account';
 			$body = welcome_email( $_SESSION, $confirm_code ); // $env
 			mail_wrap($to, $subject, $body);
 

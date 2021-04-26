@@ -18,13 +18,14 @@ const init = () => {
 	for( const item of async_items ){
 		item.addEventListener('click', e => {
 			e.preventDefault()
-			let email, password, submit, br, modal
+			let email, password, submit, br, modal, form
 			switch( item.innerText ){
 
 				case 'login':
 					modal = new Modal({
 						type: 'login',
 					})
+					form = document.createElement('form')
 					email = document.createElement('input')
 					email.placeholder = 'email'
 					email.type = 'email'
@@ -36,15 +37,16 @@ const init = () => {
 					submit.classList.add('button')
 					submit.type = 'submit'
 					submit.value = 'login'
-					submit.addEventListener('click', () => {
-						const e = email.value.trim()
+					form.addEventListener('submit', e => {
+						e.preventDefault()
+						const em = email.value.trim()
 						const p = password.value.trim()
-						if( !e || !p ){
+						if( !em || !p ){
 							hal('error', 'missing values', 2000 )
 							return
 						}
 						fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/login.php', 'post', {
-							email: e,
+							email: em,
 							password: p,
 						})
 						.then( res => {
@@ -62,12 +64,19 @@ const init = () => {
 							console.log( err )
 						})
 					})
-					lib.add_submit( email, submit )
-					lib.add_submit( password, submit )
-					modal.content.appendChild( email )
-					modal.content.appendChild( password )
-					modal.content.appendChild( br )
-					modal.content.appendChild( submit )
+					const forgot = document.createElement('a')
+					forgot.innerText= 'forgot password'
+					forgot.href = '#'
+					forgot.addEventListener('click', () => {
+						forgot.href = env.PUBLIC_ROOT + '/server/reset_request.php?e=' + email.value.trim()
+					})
+					form.appendChild( email )
+					form.appendChild( password )
+					form.appendChild( br )
+					form.appendChild( submit )
+					form.appendChild( br.cloneNode() )
+					form.appendChild( forgot )
+					modal.content.appendChild( form )
 					document.body.appendChild( modal.ele )
 					break;
 
@@ -104,7 +113,7 @@ const init = () => {
 						})
 						.then( res => {
 							if( res.success ){
-								location.reload()
+								window.location.assign( env.PUBLIC_ROOT + '/server/confirm_code.php?e=' + e )
 							}else{
 								hal('error', res.msg || 'error registering', 5000 )
 								console.log( res )

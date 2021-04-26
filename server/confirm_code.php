@@ -10,11 +10,11 @@ require_once 'head.php';
 
 	<?php require_once './includes/header.php' ?>
 
-	<div id='reset-request' class='main-content'>
+	<div id='confirm-code' class='main-content'>
 
 		<form class='turnip-form'>
-			<label>reset email:</label><br>
-			<input type='email' placeholder="enter an email to reset">
+			<label>confirm code:</label><br>
+			<input type='text' placeholder="confirmation code">
 			<br>
 			<input type='submit' value='request' class='button'>
 		</form>

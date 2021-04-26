@@ -17,8 +17,10 @@ if( isset( $_SESSION['set_reset'] ) ){
 }
 $_SESSION['set_reset'] = time();
 
-$sql = $pdo->prepare('UPDATE users SET confirm_code=NULL, confirmed=1 WHERE email=? && code=?');
-$success = $sql->execute([ $email ]);
+$now = sql_datetime( time() );
+
+$sql = $pdo->prepare('UPDATE users SET confirm_code=NULL, confirmed=1, confirm_set=? WHERE email=? && confirm_code=?');
+$success = $sql->execute([ $now, $email, $code ]);
 $rowCount = $sql->rowCount();
 if( $success && $rowCount > 0 ){
 
@@ -30,6 +32,7 @@ if( $success && $rowCount > 0 ){
 	$res->success = true;
 
 }else{
+	_LOG('reset fail: ' . $email . ' - ' . $code );
 	$res->success = false;
 	$res->msg = 'failed to send reset';
 }

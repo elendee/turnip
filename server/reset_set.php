@@ -19,7 +19,8 @@ require_once 'head.php';
 	<div id='reset-set' class='main-content'>
 
 		<form class='turnip-form'>
-			<input type='text' placeholder='enter reset code here'>
+			<label>confirmation code:</label><br>
+			<input type='text' placeholder='enter confirmation code here'>
 			<br>
 			<input type="submit" value='submit' class='button'>
 		</form>

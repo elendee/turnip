@@ -12,6 +12,9 @@ const add_player = document.querySelector('#add-player .button')
 const deletes = document.querySelectorAll('.delete')
 const reset_request = document.querySelector('#reset-request form')
 const reset_set = document.querySelector('#reset-set form')
+const reset_password = document.querySelector('#reset-password form')
+const confirm_code = document.querySelector('#confirm-code form')
+
 
 nav()
 
@@ -413,16 +416,19 @@ if( deletes && deletes.length ){
 
 
 if( reset_request ){
+	const querymail = location.href.substr( location.href.indexOf('?e=') + 3 )
+	const email = reset_request.querySelector('input[type=email]')
+	if( querymail ) email.value = querymail
 	reset_request.addEventListener('submit', e => {
 		e.preventDefault()
 		ui.spinner.show()
-		const email = reset_request.querySelector('input[type=email]')
 		fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/send_reset.php', 'post', {
 			email: email.value.trim(),
 		})
 		.then( res => {
+			console.log( res )
 			if( res.success ){
-				hal('success', 'email sent', 3000)
+				hal('success', 'email sent' + ( res.msg ? '<br>' + res.msg : '' ), env.PRODUCTION ? 3000 : false )
 				ui.spinner.hide()
 			}else{
 				ui.reject( res, res.msg || 'email failed to send', 3000)
@@ -441,7 +447,29 @@ if( reset_set ){
 		const code = reset_set.querySelector('input[type=text]')
 		fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/set_reset.php', 'post', {
 			code: code.value.trim(),
-			email: location.href.substr( location.href.indexOf('?=') + 2 ),
+			email: location.href.substr( location.href.indexOf('?e=') + 3 ),
+		})
+		.then( res => {
+			if( res.success ){
+				window.location.assign(env.PUBLIC_ROOT + '/server/reset_password.php')
+				// hal('success', 'success', 3000)// + ( res.msg ? '<br>' + res.msg : '' ), 3000)
+				// ui.spinner.hide()
+			}else{
+				ui.reject( res, res.msg || 'reset failed', 3000)
+			}
+		})
+		.catch( err => {
+			ui.reject( err, err.msg || 'reset failed', 3000)
+		})
+	})
+}
+
+if( reset_password ){
+	reset_password.addEventListener('submit', e => {
+		e.preventDefault()
+		ui.spinner.show()
+		fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/set_password.php', 'post', {
+			password: reset_password.querySelector('input').value.trim(),
 		})
 		.then( res => {
 			if( res.success ){
@@ -457,6 +485,30 @@ if( reset_set ){
 	})
 }
 
+
+if( confirm_code ){
+	confirm_code.addEventListener('submit', e => {
+		e.preventDefault()
+		ui.spinner.show()
+		fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/confirm_code.php', 'post', {
+			password: confirm_code.querySelector('input').value.trim(),
+		})
+		.then( res => {
+			if( res.success ){
+				hal('success', 'success', 3000)
+				ui.spinner.hide()
+				setTimeout(()=>{
+					location.reload()
+				}, 500)
+			}else{
+				ui.reject( res, res.msg || 'reset failed', 3000)
+			}
+		})
+		.catch( err => {
+			ui.reject( err, err.msg || 'reset failed', 3000)
+		})
+	})
+}
 
 const fill_select = ( select, table ) => {
 

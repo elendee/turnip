@@ -67,11 +67,7 @@ function random_hex( $length ){
 }
 
 function sql_datetime( $time ){
-	if( isset( $time) && gettype($time) === 'integer' ){
-		return gmdate( 'Y-m-d H:i:s', $time );
-	}else{
-		return gmdate( 'Y-m-d H:i:s', time() );
-	}
+	return gmdate( 'Y-m-d H:i:s', $time );
 }
 
 function mail_wrap( $to, $subject, $body ){
@@ -90,3 +86,8 @@ function json_reject( $msg, $res ){
 	echo json_encode($res);
 	return;
 }
+
+function hash_func($password) {
+    $hash = password_hash($password, PASSWORD_BCRYPT);
+    return $hash;
+}	

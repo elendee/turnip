@@ -11,9 +11,11 @@ $email = $post->email;
 
 $new_code = random_hex(12);
 
+$reset_time = $env->PRODUCTION ? 30 : 3;
+
 if( isset( $_SESSION['last_reset'] ) ){
-	if( time() - $_SESSION['last_reset'] < 30 ){
-		return json_reject('wait 30 seconds between resets', $res);
+	if( time() - $_SESSION['last_reset'] < $reset_time ){
+		return json_reject('wait ' . $reset_time . ' seconds between resets', $res);
 	}
 }
 $_SESSION['last_reset'] = time();
@@ -34,6 +36,13 @@ if( $success && $rowCount > 0 ){
 	mail_wrap( $to, $subject, $body );
 
 	$res->success = true;
+	if( !$env->PRODUCTION ){
+		$link = $env->public_root . '/server/reset_set.php?e=' . $email;
+		$res->msg = 'local dev link: <a href="' . $link . '">reset link</a> code: ' . $new_code;
+		_LOG('wot yea');
+	}else{
+		_LOG('wot');
+	}
 
 }else{
 	$res->success = false;
