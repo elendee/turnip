@@ -39,7 +39,7 @@ class Spinner{
 }
 
 
-const spinner = new Spinner({
+const spinner = window.spinner = new Spinner({
 	src: env.PUBLIC_ROOT + '/resource/media/spinner.gif'
 })
 

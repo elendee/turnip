@@ -5,7 +5,7 @@
 	?>
 
 	<div id='admin'>
-		<h3 class='admin-section'>tournaments:</h3>
+		<h3>tournaments:</h3>
 		<?php
 			$sql = $pdo->prepare('SELECT * FROM tournaments WHERE 1 ORDER BY id DESC');
 			$sql->execute();
