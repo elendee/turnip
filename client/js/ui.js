@@ -30,7 +30,7 @@ class Spinner{
 		spinning = setTimeout(()=>{
 			clearTimeout(spinning)
 			spinning = false
-		}, 10 * 1000)
+		}, 20 * 1000)
 	}
 	hide(){
 		this.ele.remove()

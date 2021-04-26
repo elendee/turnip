@@ -38,7 +38,7 @@ require_once 'head.php';
 		</div>
 		<?php if( is_admin( $_SESSION ) ){ ?>
 		<div id='add-team'>
-			<div class='button'>add a team</div>
+			<div class='button'>register a team</div>
 		</div>
 		<?php } ?>
 		<h4>registered teams:</h4>
