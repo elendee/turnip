@@ -11,7 +11,7 @@ if( isset( $post->table ) ){
 
 	switch( $post->table ){
 		case 'managers';
-			$sql = $pdo->prepare('SELECT id, name, surname, email FROM users WHERE role="manager"');
+			$sql = $pdo->prepare('SELECT id, name, email FROM users WHERE role="manager"');
 			break;
 		case 'teams';
 			$sql = $pdo->prepare('SELECT * FROM teams WHERE 1');
@@ -23,11 +23,12 @@ if( isset( $post->table ) ){
 		default: break;
 	}
 
-	if( $sql ){
-		$sql->execute();
-		$results = $sql->fetchAll();
-		$res->success = true;
-		$res->results = $results;
+	if( $sql ){;
+		$res->success = $sql->execute();
+		$res->results = $sql->fetchAll();
+		foreach ($res->results as $key => $value) {
+			_LOG($value['surname']);
+		}
 	}
 
 }

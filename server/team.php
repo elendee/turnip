@@ -56,7 +56,7 @@ require_once 'head.php';
 
 		foreach ($results3 as $key => $value) {
 			echo '<div class="team row">';
-			echo '<div class="column column-2"><a href="' . $env->public_root . '/server/player.php?t=' . $value['id'] . '">' . $value['name'] . '</a></div>';
+			echo '<div class="column column-2"><a href="' . $env->public_root . '/server/player.php?t=' . $value['id'] . '">' . $value['name'] . ' ' . $value['surname'] . '</a></div>';
 			echo '<div class="column column-2">' . $value['position'] . '</div>';
 			echo '</div>';
 		}
