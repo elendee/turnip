@@ -46,7 +46,7 @@ if( create ){
 			date.type = 'text'
 			date.placeholder = 'tournament date'
 			const description = document.createElement('textarea')
-			description.placeholder = 'tournament description'
+			description.placeholder = 'tournament description (text only)'
 			const submit = document.createElement('input')
 			submit.classList.add('button')
 			submit.type = 'submit'

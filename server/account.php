@@ -27,7 +27,7 @@ require_once 'head.php';
 	<?php require_once './includes/header.php' ?>
 
 	<div id='user' class='main-content'>
-		<h3 class='page-category'><span class='category'>account:</span> <?php echo $user['name'] .  ' ' . $user['surname']; ?></h3>
+		<h3 class='page-category'><span class='category'>account:</span> <?php echo htmlspecialchars( $user['name']  .  ' ' . $user['surname'] ); ?></h3>
 		<?php 
 		if( is_admin( $_SESSION ) ){
 			echo '<div><b>email:</b>' . $user['email'] . '</div>'; 

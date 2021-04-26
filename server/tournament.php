@@ -31,10 +31,11 @@ require_once 'head.php';
 	<div id='tournament' class='main-content'>
 		<div class='main-info'>
 			<div class='main-info-liner'>
-				<h3 class='page-category'><span class='category'>tournament:</span> <?php echo $tourney['name']; ?></h3>
-				<h4>date: <?php echo $tourney['date']; ?></h4>
+				<h3 class='page-category'><span class='category'>tournament:</span> <?php echo htmlspecialchars($tourney['name']); ?></h3>
+				<h4>date:</h4>
+				<?php echo htmlspecialchars($tourney['date']); ?>
 				<h4>description:</h4>
-				<pre class='align-left'><?php echo $tourney['description']; ?></pre>
+				<pre class='align-left'><?php echo htmlspecialchars($tourney['description']); ?></pre>
 			</div>
 		</div>
 		<?php if( is_admin( $_SESSION ) ){ ?>
@@ -50,8 +51,8 @@ require_once 'head.php';
 			if( is_admin( $_SESSION ) ){
 				echo '<div class="delete button" data-type="registration" data-team_key="' . $value['id'] . '" data-tourney_key="' . $_GET['t'] . '">x</div>';
 			}
-			echo '<div class="column column-2"><a href="' . $env->public_root . '/server/team.php?t=' . $value['id'] . '"/>' . $value['name'] . '</a></div>';
-			echo '<div class="column column-2">' . $value['user_name'] . '</div>';
+			echo '<div class="column column-2"><a href="' . $env->public_root . '/server/team.php?t=' . $value['id'] . '"/>' . htmlspecialchars($value['name']) . '</a></div>';
+			echo '<div class="column column-2">' . htmlspecialchars($value['user_name']) . '</div>';
 			echo '</div>';
 		}
 		?>

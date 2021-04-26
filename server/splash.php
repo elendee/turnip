@@ -20,13 +20,13 @@
 						echo '<div class="delete button" data-type="tournament" data-id="' . $value['id'] . '">x</div>';
 					}
 					echo '<div class="column column-3"><a href="' . $env->public_root . '/server/tournament.php?t=' . $value['id'] . '">';
-					echo $value['name'];
+					echo htmlspecialchars( $value['name'] );
 					echo '</a></div>';
 					echo '<div class="column column-3">';
-					echo $value['date'];
+					echo htmlspecialchars( $value['date'] );
 					echo '</div>';
 					echo '<div class="column column-3">';
-					echo $value['description'];
+					echo htmlspecialchars( $value['description'] );
 					echo '</div>';
 					echo '</div>';
 				}

@@ -218,6 +218,10 @@ input.button[type=submit]{
 	padding: 10px;
 	background: #e8f3e8;
 	display: inline-block;
+	max-width: 600px;
+}
+.main-info-liner h4{
+	margin: 5px 0;
 }
 
 #add-team,

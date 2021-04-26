@@ -33,10 +33,10 @@ require_once 'head.php';
 	<?php require_once './includes/header.php' ?>
 
 	<div id='team' class='main-content'>
-		<h3 class='page-category'><span class='category'>team:</span> <?php echo $team['name']; ?></h3>
+		<h3 class='page-category'><span class='category'>team:</span> <?php echo htmlspecialchars( $team['name'] ); ?></h3>
 		<?php
 			if( isset( $manager ) ){
-				echo '<div style="text-align: center">manager: <a href="' . $env->public_root . '/server/account.php?n=' . $manager['id'] . '">' . $manager['name'] . '</a></div>';
+				echo '<div style="text-align: center">manager: <a href="' . $env->public_root . '/server/account.php?n=' . $manager['id'] . '">' . htmlspecialchars( $manager['name'] ) . '</a></div>';
 			}
 		?>
 		<?php 
@@ -51,13 +51,13 @@ require_once 'head.php';
 			} 
 		}
 		
-		echo '<h4>' . $team['name'] . ' players:</h4>';
+		echo '<h4>' . htmlspecialchars( $team['name'] ) . ' players:</h4>';
 		echo header_row('name', 'position');
 
 		foreach ($results3 as $key => $value) {
 			echo '<div class="team row">';
-			echo '<div class="column column-2"><a href="' . $env->public_root . '/server/player.php?t=' . $value['id'] . '">' . $value['name'] . ' ' . $value['surname'] . '</a></div>';
-			echo '<div class="column column-2">' . $value['position'] . '</div>';
+			echo '<div class="column column-2"><a href="' . $env->public_root . '/server/player.php?t=' . $value['id'] . '">' . htmlspecialchars( $value['name'] ) . ' ' . htmlspecialchars( $value['surname'] ) . '</a></div>';
+			echo '<div class="column column-2">' . htmlspecialchars( $value['position'] ) . '</div>';
 			echo '</div>';
 		}
 		?>

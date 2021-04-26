@@ -27,11 +27,11 @@ require_once 'head.php';
 	<?php require_once './includes/header.php' ?>
 
 	<div id='player' class='main-content'>
-		<h3 class='page-category'><span class='category'>player:</span> <?php echo $player['name'] .  ' ' . $player['surname']; ?></h3>
+		<h3 class='page-category'><span class='category'>player:</span> <?php echo htmlspecialchars($player['name']) .  ' ' . htmlspecialchars($player['surname']); ?></h3>
 		<?php 
-		echo '<div><b>position:</b>' . $player['position'] . '</div>'; 
+		echo '<div><b>position:</b>' . htmlspecialchars($player['position']) . '</div>'; 
 		if( is_admin( $_SESSION ) ){
-			echo '<div><b>email:</b>' . $player['email'] . '</div>'; 
+			echo '<div><b>email:</b>' . htmlspecialchars($player['email']) . '</div>'; 
 			echo '<div class="align-center"><div id="add-to-team"><div class="button">add to team</div></div>';
 		}
 		?>
@@ -47,8 +47,8 @@ require_once 'head.php';
 			}
 			foreach ($results2 as $key => $value) {
 				echo '<div class="team row">';
-				echo '<div class="column column-2"><a href="' . $env->public_root . '/server/team.php?t=' . $value['id'] . '">' . $value['name'] . '</a></div>';
-				echo '<div class="column column-2">' . $value['user_name'] . '</div>';
+				echo '<div class="column column-2"><a href="' . $env->public_root . '/server/team.php?t=' . $value['id'] . '">' . htmlspecialchars( $value['name'] ) . '</a></div>';
+				echo '<div class="column column-2">' . htmlspecialchars( $value['user_name'] ) . '</div>';
 				echo '</div>';
 			}
 		?>
