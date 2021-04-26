@@ -29,9 +29,11 @@ const init = () => {
 					email = document.createElement('input')
 					email.placeholder = 'email'
 					email.type = 'email'
+					email.name = 'email'
 					password = document.createElement('input')
 					password.placeholder = 'password'
 					password.type = 'password'
+					password.name = 'password'
 					br = document.createElement('br')
 					submit = document.createElement('input')
 					submit.classList.add('button')

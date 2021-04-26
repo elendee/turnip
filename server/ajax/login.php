@@ -8,10 +8,18 @@ $res = new stdClass();
 
 $post = get_post();
 
+$login_time = 5;
+if( isset( $_SESSION['last_login_attempt'] ) ){
+	if( time() - $_SESSION['last_login_attempt'] < $login_time ){
+		return json_reject('wait ' . $login_time . ' seconds between logins', $res);
+	}
+}
+$_SESSION['last_login_attempt'] = time();
+
+
 if( $is_logged ){ // isset( $_SESSION['id']
 	$res->success = true;
 	$res->msg = 'already logged in';
-	_LOG('already logged');
 }else{
 	if( !isset( $post->email ) || !isset( $post->password ) ){
 		$res->success = false;

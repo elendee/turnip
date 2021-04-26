@@ -11,11 +11,10 @@ $email = $post->email;
 
 $new_code = random_hex(12);
 
-$reset_time = $env->PRODUCTION ? 30 : 3;
-
+$request_time = $env->PRODUCTION ? 30 : 3;
 if( isset( $_SESSION['last_reset'] ) ){
-	if( time() - $_SESSION['last_reset'] < $reset_time ){
-		return json_reject('wait ' . $reset_time . ' seconds between resets', $res);
+	if( time() - $_SESSION['last_reset'] < $request_time ){
+		return json_reject('wait ' . $request_time . ' seconds between resets', $res);
 	}
 }
 $_SESSION['last_reset'] = time();

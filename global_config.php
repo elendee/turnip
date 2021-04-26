@@ -16,7 +16,6 @@ if( !isset( $_SESSION['confirmed'] ) || !$_SESSION['confirmed'] ){
 	$is_logged = ( $is_admin || $is_manager ) ? true : false;	
 }
 
-
 // return json_reject('testing', new stdClass() );
 // _LOG( time('2021-04-25 21:22:15') );
 
