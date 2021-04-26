@@ -10,8 +10,6 @@ if( !$results ){
 	$tourney = $results[0];
 }
 
-is_admin( $_SESSION ) = isset( $_SESSION['role'] ) && $_SESSION['role'] === 'admin' ? true : false;
-
 $sql3 = $pdo->prepare('
 	SELECT users.name user_name, teams.name, teams.id 
 	FROM registrations reg 
