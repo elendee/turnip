@@ -17,7 +17,8 @@ if( !isset( $_SESSION['confirmed'] ) || $_SESSION['confirmed'] !== true ){
 }
 
 
-
+// return json_reject('testing', new stdClass() );
+// _LOG( time('2021-04-25 21:22:15') );
 
  try{
      $pdo=new PDO("mysql:host=" . $env->db_host . "; port=3306; dbname=" . $env->db_name, $env->db_user, $env->db_password );
@@ -31,7 +32,7 @@ if( !isset( $pdo )){
 	_LOG('failed to init db');
 }
 
-function _LOG( ...$msgs ){ // $msg, $msg2
+function _LOG( ...$msgs ){
 
 	global $env;
 
@@ -39,24 +40,12 @@ function _LOG( ...$msgs ){ // $msg, $msg2
 		file_put_contents($env->logfile, date('D:H:i') . ': ' . $value . PHP_EOL, FILE_APPEND | LOCK_EX);
 	}
 
-	// file_put_contents($env->logfile, date('D:H:i') . ': ' . $msgs[0] . PHP_EOL, FILE_APPEND | LOCK_EX);
-
-	// if( isset( $msgs[1] ) ){
-	// 	file_put_contents($env->logfile, date('D:H:i') . ': ' . $msgs[1] . PHP_EOL, FILE_APPEND | LOCK_EX);
-	// }
-
 }
 
 function get_post(){
-
-	// Get the JSON contents
 	$json = file_get_contents('php://input');
-
-	// decode the json data
 	$data = json_decode($json);
-
 	return $data;
-
 }
 
 function header_row( ...$values ){
@@ -78,7 +67,7 @@ function random_hex( $length ){
 }
 
 function sql_datetime( $time ){
-	if( $time ){
+	if( isset( $time) && gettype($time) === 'integer' ){
 		return gmdate( 'Y-m-d H:i:s', $time );
 	}else{
 		return gmdate( 'Y-m-d H:i:s', time() );
@@ -92,4 +81,12 @@ function mail_wrap( $to, $subject, $body ){
 	}else{
 		_LOG('SKIP local email: ', $to, $subject, $body);
 	}
+}
+
+function json_reject( $msg, $res ){
+	$res->success = false;
+	$res->msg = $msg;
+	_LOG( $msg );
+	echo json_encode($res);
+	return;
 }

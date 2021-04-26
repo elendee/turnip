@@ -2,6 +2,7 @@ import { Modal } from './Modal.js?v=8'
 import fetch_wrap from './fetch_wrap.js?v=8'
 // import * as lib from './lib.js?v=8'
 import hal from './hal.js?v=8'
+import ui from './ui.js?v=8'
 import env from './env.js?v=8'
 import nav from './nav.js?v=8'
 
@@ -9,6 +10,8 @@ const create = document.querySelector('#create')
 const add_team = document.querySelector('#add-team .button')
 const add_player = document.querySelector('#add-player .button')
 const deletes = document.querySelectorAll('.delete')
+const reset_request = document.querySelector('#reset-request form')
+const reset_set = document.querySelector('#reset-set form')
 
 nav()
 
@@ -56,6 +59,7 @@ if( create ){
 			document.body.appendChild( modal.ele )
 			form.addEventListener('submit', e => {
 				e.preventDefault()
+				ui.spinner.show()
 				const n = name.value.trim()
 				const d = date.value.trim()
 				const l = location.value.trim()
@@ -72,13 +76,11 @@ if( create ){
 							window.location.reload()
 						}, 500 )
 					}else{
-						console.log( res )
-						hal('error', res.msg || 'failed to create', 2000 )
+						ui.reject( res, res.msg || 'failed to create', 2000 )
 					}
 				})
 				.catch( err => {
-					console.log( err )
-					hal('error', err.msg || 'failed to create', 2000 )
+					ui.reject( err, err.msg || 'failed to create', 2000 )
 				})
 			})
 		})
@@ -117,6 +119,7 @@ if( create ){
 			document.body.appendChild( modal.ele )
 			form.addEventListener('submit', e => {
 				e.preventDefault()
+				ui.spinner.show()
 				const n = name.value.trim()
 				const em = email.value.trim()
 				// const p = password.value.trim()
@@ -132,13 +135,11 @@ if( create ){
 						hal('success', 'success', 3000 )
 						modal.ele.remove()
 					}else{
-						console.log( res )
-						hal('error', res.msg || 'failed to create', 2000 )
+						ui.reject( res, res.msg || 'failed to create', 2000 )
 					}
 				})
 				.catch( err => {
-					console.log( err )
-					hal('error', err.msg || 'failed to create', 2000 )
+					ui.reject( err, err.msg || 'failed to create', 2000 )
 				})
 			})
 		})
@@ -187,10 +188,10 @@ if( create ){
 			modal.content.appendChild( form )
 			document.body.appendChild( modal.ele )
 			form.addEventListener('submit', e => {
+				ui.spinner.show()
 				e.preventDefault()
 				const n = name.value.trim()
 				const m = manager ? manager.value : false
-				// fetch_wrap('/create', 'post', {
 				fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
 					type: 'team',
 					name: n,
@@ -201,13 +202,11 @@ if( create ){
 						hal('success', 'success', 3000 )
 						modal.ele.remove()
 					}else{
-						console.log( res )
-						hal('error', res.msg || 'failed to create', 2000 )
+						ui.reject( res, res.msg || 'failed to create', 3000 )
 					}
 				})
 				.catch( err => {
-					console.log( err )
-					hal('error', err.msg || 'failed to create', 2000 )
+					ui.reject( err, err.msg || 'failed to create', 3000 )
 				})
 			})
 		})
@@ -253,6 +252,7 @@ if( create ){
 			modal.content.appendChild( form )
 			document.body.appendChild( modal.ele )
 			form.addEventListener('submit', e => {
+				ui.spinner.show()
 				e.preventDefault()
 				const n = name.value.trim()
 				const s = surname.value.trim()
@@ -273,13 +273,11 @@ if( create ){
 						// }, 500 )
 						modal.ele.remove()
 					}else{
-						console.log( res )
-						hal('error', res.msg || 'failed to create', 2000 )
+						ui.reject( res, res.msg || 'failed to create', 2000 )
 					}
 				})
 				.catch( err => {
-					console.log( err )
-					hal('error', err.msg || 'failed to create', 2000 )
+					ui.reject( err, err.msg || 'failed to create', 2000 )
 				})
 			})
 		})
@@ -312,6 +310,7 @@ if( add_team ){
 		modal.content.appendChild( form )
 		document.body.appendChild( modal.ele )
 		submit.addEventListener('click', () => {
+			ui.spinner.show()
 			fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
 				type: 'registration',
 				team_key: select.value,
@@ -324,13 +323,11 @@ if( add_team ){
 						window.location.reload()
 					}, 500 )
 				}else{	
-					console.log( res )
-					hal('error', res.msg || 'error creating', 3000 )
+					ui.reject( res, res.msg || 'error creating', 3000 )
 				}
 			})
 			.catch( err => {
-				hal('error', err.msg || 'error creating', 3000 )
-				console.log( err )
+				ui.reject( err, err.msg || 'error creating', 3000 )
 			})
 		})
 	})
@@ -361,6 +358,7 @@ if( add_player ){
 		modal.content.appendChild( form )
 		document.body.appendChild( modal.ele )
 		submit.addEventListener('click', () => {
+			ui.spinner.show()
 			fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
 				type: 'player-registration',
 				player_key: select.value,
@@ -373,13 +371,11 @@ if( add_player ){
 						window.location.reload()
 					}, 500 )
 				}else{	
-					console.log( res )
-					hal('error', res.msg || 'error assigning', 3000 )
+					ui.reject( res, res.msg || 'error assigning', 3000 )
 				}
 			})
 			.catch( err => {
-				hal('error', err.msg || 'error assigning', 3000 )
-				console.log( err )
+				ui.reject( err, res.msg || 'error assigning', 3000 )
 			})
 		})
 		document.body.appendChild( modal.ele )
@@ -391,6 +387,7 @@ if( deletes && deletes.length ){
 	for( const del of deletes ){
 		del.addEventListener('click', e => {
 			if( confirm('delete? cannot be undone') ){
+				ui.spinner.show()
 				fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/delete.php', 'post', {
 					type: del.getAttribute('data-type'),
 					id: del.getAttribute('data-id'),
@@ -402,13 +399,11 @@ if( deletes && deletes.length ){
 							window.location.reload()
 						}, 500)
 					}else{
-						hal('error', 'err deleting', 3000)
-						console.log( res )
+						ui.reject( res, 'err deleting', 3000)
 					}
 				})
 				.catch( err => {
-					hal('error', 'err deleting', 3000)
-					console.log( err )
+					ui.reject( err, 'err deleting', 3000)
 				})
 			}
 			e.preventDefault()
@@ -416,6 +411,51 @@ if( deletes && deletes.length ){
 	}
 }
 
+
+if( reset_request ){
+	reset_request.addEventListener('submit', e => {
+		e.preventDefault()
+		ui.spinner.show()
+		const email = reset_request.querySelector('input[type=email]')
+		fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/send_reset.php', 'post', {
+			email: email.value.trim(),
+		})
+		.then( res => {
+			if( res.success ){
+				hal('success', 'email sent', 3000)
+				ui.spinner.hide()
+			}else{
+				ui.reject( res, res.msg || 'email failed to send', 3000)
+			}
+		})
+		.catch( err => {
+			ui.reject( err, err.msg || 'email failed to send', 3000)
+		})
+	})
+}
+
+if( reset_set ){
+	reset_set.addEventListener('submit', e => {
+		e.preventDefault()
+		ui.spinner.show()
+		const code = reset_set.querySelector('input[type=text]')
+		fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/set_reset.php', 'post', {
+			code: code.value.trim(),
+			email: location.href.substr( location.href.indexOf('?=') + 2 ),
+		})
+		.then( res => {
+			if( res.success ){
+				hal('success', 'success', 3000)
+				ui.spinner.hide()
+			}else{
+				ui.reject( res, res.msg || 'reset failed', 3000)
+			}
+		})
+		.catch( err => {
+			ui.reject( err, err.msg || 'reset failed', 3000)
+		})
+	})
+}
 
 
 const fill_select = ( select, table ) => {
@@ -437,12 +477,11 @@ const fill_select = ( select, table ) => {
 				select.appendChild( option )
 			}
 		}else{
-			hal('error', 'error filling managers', 3000 )
-			console.log( res )
+			ui.reject( res, 'error filling managers', 3000 )
 		}
 	})
 	.catch( err => {
-		console.log( err )
+		ui.reject( err, 'error filling managers', 3000 )
 	})
 
 }

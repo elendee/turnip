@@ -1,4 +1,5 @@
 import env from './env.js?v=8'
+import hal from './hal.js?v=8'
 
 let spinning = false
 
@@ -43,12 +44,17 @@ const spinner = new Spinner({
 })
 
 
-
+const reject = ( res, msg, time ) => {
+	hal('error', msg, time )
+	spinner.hide()
+	if( res ) console.log( res )
+}
 
 
 
 export default {
 	spinner,
+	reject,
 }
 
 

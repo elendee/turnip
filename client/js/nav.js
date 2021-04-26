@@ -51,7 +51,9 @@ const init = () => {
 							if( res.success ){
 								location.reload()
 							}else{
-								hal('error', res.msg || 'error logging in', 5000 )
+								let time
+								time = res.msg.match(/not confirmed/) ? false : 5000
+								hal('error', res.msg || 'error logging in', time )
 								console.log( res )
 							}
 						})

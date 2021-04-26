@@ -10,7 +10,7 @@ $post = get_post();
 
 if( $is_logged ){ // isset( $_SESSION['id']
 	$res->success = true;
-	$res->msg = 'already logged in';
+	$res->msg = 'already logged in'];
 	_LOG('already logged');
 }else{
 	if( !isset( $post->email ) || !isset( $post->password ) ){
@@ -27,11 +27,16 @@ if( $is_logged ){ // isset( $_SESSION['id']
 		if( $results && isset( $results[0] ) ){
 			$user = $results[0];
 			if( password_verify( $post->password, $user['password'] ) ){ 
-				$_SESSION['id'] = $user['id'];
-				$_SESSION['email'] = $user['email'];
-				$_SESSION['name'] = $user['name'];
-				$_SESSION['role'] = $user['role'];
-				$res->success = true;
+				if( $user['confirmed'] ){
+					$_SESSION['id'] = $user['id'];
+					$_SESSION['email'] = $user['email'];
+					$_SESSION['name'] = $user['name'];
+					$_SESSION['role'] = $user['role'];
+					$res->success = true;
+				}else{
+					$res->success = false;
+					$res->msg = 'account is not confirmed<br>check your email, or <a href="' . $env->public_root . '/server/reset_request.php">click here</a> to send a reset link';
+				}
 			}else{
 				$res->success = false;
 				$res->msg = 'invalid password';

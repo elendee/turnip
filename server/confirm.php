@@ -2,25 +2,21 @@
 
 include_once '../global_config.php';
 
-// $res = new stdClass();
-
-// $then = sql_datetime( time() - ( 60 * 5 ) );
-$then = sql_datetime(false);
-
-$sql = $pdo->prepare('UPDATE users SET confirm_code=NULL WHERE confirm_code=? AND confirm_set > ?');
-$sql->execute([$_GET['k'], $then ]);
-$results = $sql->fetchAll();
-var_dump($results);
-
-return;
-
-if( !$results ){
-	$success = false;
-	// $res->success = false;
-}else{	
-	$success = true;
-	// $res->success = true;
+if( isset($_SESSION['email']) ){
+	$email = $_SESSION['email'];
+}else{
+	$email = 'anon';
 }
+
+$then_ms = time() - ( 100 * 60 * 5 );
+
+$then_iso = sql_datetime( $then_ms );
+
+$sql = $pdo->prepare('UPDATE users SET confirmed=1, confirm_set=?, confirm_code=NULL WHERE confirm_code=? AND confirm_set > ?');
+$success = $sql->execute([ sql_datetime( 0 ), $_GET['k'], $then_iso ]);
+$rowCount = $sql->rowCount();
+
+require_once 'head.php'; 
 
 ?>
 
@@ -31,13 +27,16 @@ if( !$results ){
 	<div id='confirm' class='main-content'>
 
 		<?php 
-		if( $success ){
+		if( $success && $rowCount > 0 ){
 			echo 'success!';
 		}else{
+			_LOG('failed to confirm: ' . $email . ' - ' . $rowCount . ' - ' . ( time() - $then_ms ) );
 			echo 'failed to confirm';
 		}
 		?>
 
 	</div>
+
+	<script type="module" src='../client/js/init_manager.js?v=8'></script>
 
 </body>

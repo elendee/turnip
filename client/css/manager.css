@@ -239,6 +239,18 @@ input.button[type=submit]{
 	color: white;
 }
 
+.turnip-form input[type=email],
+.turnip-form input[type=text],
+.turnip-form input[type=password]{
+    width: 350px;
+    max-width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+.turnip-form input[type=submit]{
+	padding: 5px;
+	border: 0px solid;
+}
 
 @media screen and (max-width: 800px){
 	.column-3{

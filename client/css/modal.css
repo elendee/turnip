@@ -35,18 +35,11 @@
 	margin-top: 40px;
 	width: 100%;
 	max-width: 600px;
-	height: 70vh;
 	overflow-y: auto;
 	overflow-x: hidden;
 	padding-top: 50px;
-/* 	padding-top: 50px; */
 }
 
-/* .modal h1,
-.modal h2,
-.modal h3{
-    color: white;
-} */
 .modal  .modal-header{
 	color: #c1cafb;
 	margin-bottom: 10px;
