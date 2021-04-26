@@ -1,5 +1,5 @@
-import env from './env.js?v=9'
-import hal from './hal.js?v=9'
+import env from './env.js?v=10'
+import hal from './hal.js?v=10'
 
 let spinning = false
 

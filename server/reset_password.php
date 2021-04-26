@@ -26,7 +26,7 @@ $email = isset( $_SESSION['email'] ) ? $_SESSION['email'] : '(missing)';
 
 	</div>
 
-	<script type="module" src='../client/js/init_manager.js?v=9'></script>
+	<script type="module" src='../client/js/init_manager.js?v=10'></script>
 
 </body>
 

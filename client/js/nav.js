@@ -1,8 +1,8 @@
-import { Modal } from './Modal.js?v=9'
-import * as lib from './lib.js?v=9'
-import hal from './hal.js?v=9'
-import env from './env.js?v=9'
-import fetch_wrap from './fetch_wrap.js?v=9'
+import { Modal } from './Modal.js?v=10'
+import * as lib from './lib.js?v=10'
+import hal from './hal.js?v=10'
+import env from './env.js?v=10'
+import fetch_wrap from './fetch_wrap.js?v=10'
 
 
 const init = () => {
