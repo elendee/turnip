@@ -532,7 +532,7 @@ const fill_select = ( select, table ) => {
 			for( const result of res.results ){
 				const option = document.createElement('option')
 				option.value = result.id
-				option.innerText = result.name + ' ' result.surname
+				option.innerText = result.name + ' ' + result.surname
 				select.appendChild( option )
 			}
 		}else{
