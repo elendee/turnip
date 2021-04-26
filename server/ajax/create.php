@@ -10,8 +10,8 @@ $type = $post->type;
 switch ($type) {
 
 	case 'tournament':
-		$sql = $pdo->prepare('INSERT INTO tournaments ( name, date, location ) VALUES ( ?, ?, ?)');
-		$sql->execute([ $post->name, $post->date, $post->location ]);
+		$sql = $pdo->prepare('INSERT INTO tournaments ( name, date, description ) VALUES ( ?, ?, ?)');
+		$sql->execute([ $post->name, $post->date, $post->description ]);
 		$res->success = true;
 		break;
 

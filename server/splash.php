@@ -13,7 +13,7 @@
 			if( !$results ){
 				echo 'no tournaments found';
 			}else{
-				echo header_row('tournament', 'date', 'location');
+				echo header_row('tournament', 'date', 'description');
 				foreach ($results as $key => $value) {
 					echo '<div class="tournament-result row">';
 					if( is_admin( $_SESSION ) ){
@@ -26,7 +26,7 @@
 					echo $value['date'];
 					echo '</div>';
 					echo '<div class="column column-3">';
-					echo $value['location'];
+					echo $value['description'];
 					echo '</div>';
 					echo '</div>';
 				}

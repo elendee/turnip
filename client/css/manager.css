@@ -21,6 +21,9 @@ div, a{
 .align-center{
 	text-align: center;
 }
+.align-left{
+	text-align: left;
+}
 
 .category{
 	background: #37a73a;

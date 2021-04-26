@@ -51,7 +51,7 @@ require_once 'head.php';
 			} 
 		}
 		
-		echo '<h4>team ' . $team['name'] . ' players:</h4>';
+		echo '<h4>' . $team['name'] . ' players:</h4>';
 		echo header_row('name', 'position');
 
 		foreach ($results3 as $key => $value) {

@@ -45,9 +45,8 @@ if( create ){
 			const date = document.createElement('input')
 			date.type = 'text'
 			date.placeholder = 'tournament date'
-			const location = document.createElement('input')
-			location.type = 'text'
-			location.placeholder = 'tournament location'
+			const description = document.createElement('textarea')
+			description.placeholder = 'tournament description'
 			const submit = document.createElement('input')
 			submit.classList.add('button')
 			submit.type = 'submit'
@@ -56,7 +55,7 @@ if( create ){
 			form.appendChild( title )
 			form.appendChild( name )
 			form.appendChild( date )
-			form.appendChild( location )
+			form.appendChild( description )
 			form.appendChild( br )
 			form.appendChild( submit )
 			modal.content.appendChild( form )
@@ -66,11 +65,11 @@ if( create ){
 				ui.spinner.show()
 				const n = name.value.trim()
 				const d = date.value.trim()
-				const l = location.value.trim()
+				const l = description.value.trim()
 				fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
 					type: 'tournament',
 					date: d,
-					location: l,
+					description: l,
 					name: n,
 				})
 				.then( res => {

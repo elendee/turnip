@@ -32,8 +32,9 @@ require_once 'head.php';
 		<div class='main-info'>
 			<div class='main-info-liner'>
 				<h3 class='page-category'><span class='category'>tournament:</span> <?php echo $tourney['name']; ?></h3>
-				<h4 class='align-center'>date: <?php echo $tourney['date']; ?></h4>
-				<h4 class='align-center'>location: <?php echo $tourney['location']; ?></h4>
+				<h4>date: <?php echo $tourney['date']; ?></h4>
+				<h4>description:</h4>
+				<pre class='align-left'><?php echo $tourney['description']; ?></pre>
 			</div>
 		</div>
 		<?php if( is_admin( $_SESSION ) ){ ?>
