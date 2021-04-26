@@ -1,10 +1,10 @@
-import { Modal } from './Modal.js?v=8'
-import fetch_wrap from './fetch_wrap.js?v=8'
-// import * as lib from './lib.js?v=8'
-import hal from './hal.js?v=8'
-import ui from './ui.js?v=8'
-import env from './env.js?v=8'
-import nav from './nav.js?v=8'
+import { Modal } from './Modal.js?v=9'
+import fetch_wrap from './fetch_wrap.js?v=9'
+// import * as lib from './lib.js?v=9'
+import hal from './hal.js?v=9'
+import ui from './ui.js?v=9'
+import env from './env.js?v=9'
+import nav from './nav.js?v=9'
 
 const create = document.querySelector('#create')
 const add_team = document.querySelector('#add-team .button')
