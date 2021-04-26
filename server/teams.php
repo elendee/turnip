@@ -19,7 +19,7 @@ $results = $sql->fetchAll();
 			echo header_row('name', 'manager');
 			foreach ($results as $key => $value) {
 				echo '<div class="row team">';
-				if( $is_admin ){
+				if( is_admin( $_SESSION ) ){
 					echo '<div class="delete button" data-type="team" data-team_key="' . $value['id'] . '">x</div>';
 				}
 

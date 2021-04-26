@@ -42,7 +42,7 @@ $results = $sql->fetchAll();
 					$joined_teams = $joined_teams . $team . ', ';
 				}
 				echo '<div class="row player">';
-				if( $is_admin ){
+				if( is_admin( $_SESSION ) ){
 					echo '<div class="delete button" data-type="player" data-player_key="' . $value['id'] . '">x</div>';					
 				}
 				echo '<div class="column column-2"><a href="' . $env->public_root . '/server/player.php?t=' . $player['id'] . '">' . $player['name'] . '</a></div>';

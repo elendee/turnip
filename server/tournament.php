@@ -10,7 +10,7 @@ if( !$results ){
 	$tourney = $results[0];
 }
 
-$is_admin = isset( $_SESSION['role'] ) && $_SESSION['role'] === 'admin' ? true : false;
+is_admin( $_SESSION ) = isset( $_SESSION['role'] ) && $_SESSION['role'] === 'admin' ? true : false;
 
 $sql3 = $pdo->prepare('
 	SELECT users.name user_name, teams.name, teams.id 
@@ -48,7 +48,7 @@ require_once 'head.php';
 		echo header_row('team', 'manager');
 		foreach ($results3 as $key => $value) {
 			echo '<div class="team row">';
-			if( $is_admin ){
+			if( is_admin( $_SESSION ) ){
 				echo '<div class="delete button" data-type="registration" data-team_key="' . $value['id'] . '" data-tourney_key="' . $_GET['t'] . '">x</div>';
 			}
 			echo '<div class="column column-2"><a href="' . $env->public_root . '/server/team.php?t=' . $value['id'] . '"/>' . $value['name'] . '</a></div>';

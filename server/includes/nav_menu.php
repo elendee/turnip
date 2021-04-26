@@ -17,7 +17,7 @@
 
 			echo '<h4>create:</h4>';
 
-			if( $is_admin ){ 
+			if( is_admin( $_SESSION ) ){ 
 
 		?>
 

@@ -7,13 +7,11 @@ require_once __DIR__ . '/.env.php';
 require_once __DIR__ . '/server/includes/mailers.php';
 
 if( !isset( $_SESSION['confirmed'] ) || !$_SESSION['confirmed'] ){
-	$is_admin = false;
 	$is_manager = false;
 	$is_logged = false;
 }else{
-	$is_admin = isset( $_SESSION['email'] ) && in_array( $_SESSION['email'], $env->admins );
 	$is_manager = isset( $_SESSION['role'] ) && $_SESSION['role'] === 'manager' ? true : false;
-	$is_logged = ( $is_admin || $is_manager ) ? true : false;	
+	$is_logged = ( is_admin( $_SESSION ) || $is_manager ) ? true : false;	
 }
 
 // return json_reject('testing', new stdClass() );
@@ -92,3 +90,13 @@ function hash_func($password) {
     $hash = password_hash($password, PASSWORD_BCRYPT);
     return $hash;
 }	
+
+function is_admin( $session ){
+	global $env;
+	if( isset( $env->admins ) && isset( $session['email'] ) && in_array( $session['email'], $env->admins ) ){
+		return true;
+	}
+	return false;
+}
+
+

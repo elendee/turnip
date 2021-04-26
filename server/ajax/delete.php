@@ -3,7 +3,7 @@ require_once '../../global_config.php';
 
 $res = new stdClass();
 
-if( isset( $_SESSION['role'] ) && $_SESSION['role'] === 'admin' ){
+if( is_admin( $_SESSION ) ){
 
 	$post = get_post();
 	
@@ -13,14 +13,12 @@ if( isset( $_SESSION['role'] ) && $_SESSION['role'] === 'admin' ){
 
 		case 'tournament':
 			$sql = $pdo->prepare('DELETE FROM tournaments WHERE id=?');
-			$sql->execute([$post->id]);
-			$res->success = true;
+			$res->success = $sql->execute([$post->id]);
 			break;
 
 		case 'registration':	
 			$sql = $pdo->prepare('DELETE FROM registrations WHERE team_key=? AND tourney_key=?');
-			$sql->execute([ $post->team_key, $post->tourney_key ]);
-			$res->success = true;
+			$res->success = $sql->execute([ $post->team_key, $post->tourney_key ]);
 			break;
 
 		default: break;
@@ -29,8 +27,9 @@ if( isset( $_SESSION['role'] ) && $_SESSION['role'] === 'admin' ){
 
 }else{
 
+	_LOG('delete success fail' );
 	$res->success = false;
-	$res->msg = 'must be logged in';
+	$res->msg = 'admins only';
 
 }
 

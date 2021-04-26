@@ -30,7 +30,7 @@ require_once 'head.php';
 		<h3 class='page-category'><span class='category'>player:</span> <?php echo $player['name'] .  ' ' . $player['surname']; ?></h3>
 		<?php 
 		echo '<div><b>position:</b>' . $player['position'] . '</div>'; 
-		if( $is_admin ){
+		if( is_admin( $_SESSION ) ){
 			echo '<div><b>email:</b>' . $player['email'] . '</div>'; 
 			echo '<div class="align-center"><div id="add-to-team" class="button">add to team</div></div>';
 		}

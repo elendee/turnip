@@ -42,7 +42,7 @@ require_once 'head.php';
 		<?php 
 		if( isset( $team ) ){
 			$is_team_manager = $is_logged && $team['manager_key'] === $_SESSION['id'];
-			if( $is_team_manager || $is_admin ){ 
+			if( $is_team_manager || is_admin( $_SESSION ) ){ 
 		?>
 		<div id='add-player'>
 			<div class='button'>add a player</div>
