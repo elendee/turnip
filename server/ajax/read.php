@@ -17,7 +17,7 @@ if( isset( $post->table ) ){
 
 	switch( $post->table ){
 		case 'managers';
-			$sql = $pdo->prepare('SELECT id, name, surname, email FROM users WHERE role="manager"');
+			$sql = $pdo->prepare('SELECT id, name, surname, email FROM users WHERE role="manager" AND confirmed=1');
 			break;
 		case 'teams';
 			$sql = $pdo->prepare('SELECT * FROM teams WHERE 1');
