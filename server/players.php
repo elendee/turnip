@@ -5,7 +5,7 @@ require_once 'head.php';
 
 $sql = $pdo->prepare('
 	SELECT players.id, players.name, players.surname, teams.name team_name, teams.id team_id FROM players
-	INNER JOIN player_registrations reg ON reg.player_key=players.id
+	LEFT JOIN player_registrations reg ON reg.player_key=players.id
 	LEFT JOIN teams ON reg.team_key=teams.id
 	WHERE 1');
 $sql->execute(); // [ $_GET['t'] ]
