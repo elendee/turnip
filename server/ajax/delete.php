@@ -21,6 +21,11 @@ if( is_admin( $_SESSION ) ){
 			$res->success = $sql->execute([ $post->team_key, $post->tourney_key ]);
 			break;
 
+		case 'team':
+			$sql = $pdo->prepare('DELETE FROM teams WHERE team_key=?');
+			$res->success = $sql->execute([ $post->id ]);
+			break;			
+
 		default: break;
 
 	}
