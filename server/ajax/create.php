@@ -36,8 +36,8 @@ switch ($type) {
 		}else{
 			$hash = false;
 		}
-		$sql = $pdo->prepare('INSERT INTO users ( name, email, password, role, created ) VALUES ( ?, ?, ?, "manager", ?)' );
-		$sql->execute([ $post->name, $post->email, $hash, sql_datetime( time() ) ]); 
+		$sql = $pdo->prepare('INSERT INTO users ( name, surname, email, password, role, created ) VALUES ( ?, ?, ?, ?, "manager", ?)' );
+		$sql->execute([ $post->name, $post->surname, $post->email, $hash, sql_datetime( time() ) ]); 
 		$res->success = true;
 		break;
 

@@ -107,7 +107,10 @@ if( create ){
 			title.innerText = 'create manager:'
 			const name = document.createElement('input')
 			name.type = 'text'
-			name.placeholder = 'manager name'
+			name.placeholder = 'first name'
+			const surname = document.createElement('input')
+			surname.type = 'text'
+			surname.placeholder = 'last name'
 			const email = document.createElement('input')
 			email.type = 'text'
 			email.placeholder = 'manager email'
@@ -122,7 +125,6 @@ if( create ){
 			form.appendChild( title )
 			form.appendChild( name )
 			form.appendChild( email )
-			// form.appendChild( password )
 			form.appendChild( br )
 			form.appendChild( submit )
 			modal.content.appendChild( form )
@@ -132,13 +134,12 @@ if( create ){
 				ui.spinner.show()
 				const n = name.value.trim()
 				const em = email.value.trim()
-				// const p = password.value.trim()
-				// fetch_wrap('/create', 'post', {
+				const sn = surname.value.trim()
 				fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
 					type: 'manager',
 					name: n,
+					surname: sn,
 					email: em,
-					// password: p,
 				})
 				.then( res => {
 					if( res.success ){
