@@ -47,7 +47,7 @@ const spinner = window.spinner = new Spinner({
 const reject = ( res, msg, time ) => {
 	hal('error', msg, time )
 	spinner.hide()
-	if( res ) console.log( res )
+	if( res ) console.log( msg, res )
 }
 
 

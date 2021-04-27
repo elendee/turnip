@@ -20,7 +20,7 @@ $results = $sql->fetchAll();
 			foreach ($results as $key => $value) {
 				echo '<div class="row team">';
 				if( is_admin( $_SESSION ) ){
-					echo '<div class="delete button" data-type="team" data-team_key="' . $value['id'] . '">x</div>';
+					echo '<div class="delete button" data-type="team" data-id="' . $value['id'] . '">x</div>';
 				}
 
 				echo '<div class="column column-2"><a href="' . $env->public_root . '/server/team.php?t=' . $value['id'] . '">' . $value['name'] . '</a></div>';
