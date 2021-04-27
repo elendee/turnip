@@ -22,7 +22,7 @@ if( is_admin( $_SESSION ) ){
 			break;
 
 		case 'team':
-			$sql = $pdo->prepare('DELETE FROM teams WHERE team_key=?');
+			$sql = $pdo->prepare('DELETE FROM teams WHERE id=?');
 			$res->success = $sql->execute([ $post->id ]);
 			break;			
 
