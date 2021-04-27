@@ -124,6 +124,7 @@ if( create ){
 			const br = document.createElement('br')
 			form.appendChild( title )
 			form.appendChild( name )
+			form.appendChild( surname )
 			form.appendChild( email )
 			form.appendChild( br )
 			form.appendChild( submit )
