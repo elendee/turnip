@@ -26,6 +26,11 @@ if( is_admin( $_SESSION ) ){
 			$res->success = $sql->execute([ $post->id ]);
 			break;			
 
+		case 'player':
+			$sql = $pdo->prepare('DELETE FROM players WHERE id=?');
+			$res->success = $sql->execute([ $post->id ]);
+			break;			
+
 		default: break;
 
 	}
