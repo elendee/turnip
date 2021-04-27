@@ -254,6 +254,10 @@ input.button[type=submit]{
 	border: 0px solid;
 }
 
+#edit-tournament{
+	float: right;
+}
+
 @media screen and (max-width: 800px){
 	.column-3{
         max-width: 100%;

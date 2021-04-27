@@ -30,18 +30,21 @@ require_once 'head.php';
 
 	<div id='tournament' class='main-content'>
 		<div class='main-info'>
-			<div class='main-info-liner'>
-				<h3 class='page-category'><span class='category'>tournament:</span> <?php echo htmlspecialchars( $tourney['name'] ); ?></h3>
+			<div class='main-info-liner' data-open='<?php echo $tourney['open']; ?>'>
+				<h3 class='page-category'><span class='category'>tournament:</span> <span class='tournament-title'><?php echo htmlspecialchars( $tourney['name'] ); ?></span></h3>
 				<h4>date:</h4>
-				<?php echo htmlspecialchars( $tourney['date'] ); ?>
+				<?php echo '<span class="tournament-date">' . htmlspecialchars( $tourney['date'] ) . '</span>' ?>
 				<h4>description:</h4>
-				<pre class='align-left'><?php echo htmlspecialchars( $tourney['description'] ); ?></pre>
+				<pre class='align-left tournament-description'><?php echo htmlspecialchars( $tourney['description'] ); ?></pre>
 				<h4>link:</h4>
+				<span class="tournament-link">
 				<?php 
 					$len = 50;
 					$abbr = strlen( $tourney['link']) > $len;
 					echo '<a target="_blank" rel="nofollow" href="' . $tourney['link'] . '">' . substr( $tourney['link'], 0, $len ) . ( $abbr ? '...' : '' ) . '</a>'; 
 				?>
+				</span>
+				<?php if( is_admin( $_SESSION ) ){ ?><br><br><div id='edit-tournament' class='button'>edit</div> <?php } ?>
 			</div>
 		</div>
 		<?php if( is_admin( $_SESSION ) ){ ?>

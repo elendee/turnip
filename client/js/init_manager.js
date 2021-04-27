@@ -15,12 +15,115 @@ const reset_request = document.querySelector('#reset-request form')
 const reset_verify = document.querySelector('#reset-verify form')
 const reset_password = document.querySelector('#reset-password form')
 const confirm_code = document.querySelector('#confirm-code form')
-
+const edit_tournament = document.querySelector('#edit-tournament')
 
 nav()
 
 const is_manager = document.querySelector('body.role-manager') ? true : false
 const is_admin = document.querySelector('body.role-admin') ? true : false
+
+
+
+
+const tourney_modal = edit_id => {
+	const editing = !( !edit_id && typeof edit_id !== 'number' )
+	const modal = new Modal({
+		type: 'tournament',
+	})
+	const form = document.createElement('form')
+	const title = document.createElement('h3')
+	title.classList.add('modal-title')
+	title.innerText = ( editing ? 'edit' : 'create' ) + ' tournament:'
+	const name = document.createElement('input')
+	name.type = 'text'
+	name.placeholder = 'tournament name'
+	const date = document.createElement('input')
+	date.type = 'text'
+	date.placeholder = 'tournament date'
+	const description = document.createElement('textarea')
+	description.placeholder = 'tournament description (text only)'
+	const link = document.createElement('input')
+	link.type ='text'
+	link.placeholder = 'link (optional)'
+	const submit = document.createElement('input')
+	submit.classList.add('button')
+	submit.type = 'submit'
+	submit.value = editing ? 'edit' : 'create'
+	const br = document.createElement('br')
+	let open, open_desc
+	if( editing ){
+		open_desc = document.createElement('label')
+		open_desc.innerText = 'tournament still open'
+		open = document.createElement('input')
+		open.type = 'checkbox'
+	}
+	form.appendChild( title )
+	form.appendChild( name )
+	form.appendChild( date )
+	form.appendChild( description )
+	form.appendChild( br )
+	form.appendChild( link )
+	form.appendChild( br.cloneNode() )
+	if( editing ){
+		form.appendChild( open_desc )
+		form.appendChild( open )
+		form.appendChild( br.cloneNode() )
+	}
+	form.appendChild( submit )
+	modal.content.appendChild( form )
+	document.body.appendChild( modal.ele )
+	form.addEventListener('submit', e => {
+		e.preventDefault()
+		ui.spinner.show()
+		const n = name.value.trim()
+		const d = date.value.trim()
+		const l = description.value.trim()
+		const lnk = link.value.trim()
+		const o = open && open.checked
+		let route
+		if( editing ){
+			route = '/server/ajax/update.php'
+		}else{
+			route = '/server/ajax/create.php'
+		}
+		fetch_wrap( env.PUBLIC_ROOT + route, 'post', {
+			type: 'tournament',
+			date: d,
+			description: l,
+			name: n,
+			link: lnk,
+			edit_id: edit_id,
+			open: o,
+		})
+		.then( res => {
+			if( res.success ){
+				hal('success', 'success', 3000 )
+				setTimeout(()=>{
+					window.location.assign( env.PUBLIC_ROOT )
+				}, 500 )
+			}else{
+				ui.reject( res, res.msg || 'failed to save', 5000 )
+			}
+		})
+		.catch( err => {
+			ui.reject( err, err.msg || 'failed to save', 5000 )
+		})
+	})
+	if( editing ){
+		const liner = document.querySelector('.main-info-liner')
+		if( liner ){	
+			const source_title = liner.querySelector('.tournament-title')
+			const source_description = liner.querySelector('.tournament-description')
+			const source_date = liner.querySelector('.tournament-date')		
+			const source_link = liner.querySelector('.tournament-link')
+			name.value = source_title.innerHTML || ''
+			description.value = source_description.innerHTML || ''
+			link.value = source_link.text || ''
+			date.value = source_date.innerHTML || ''
+			if( open ) open.checked = liner.getAttribute('data-open') ? true : false
+		}
+	}
+}
 
 
 if( create ){
@@ -32,67 +135,7 @@ if( create ){
 
 	if( tourney ){
 		tourney.addEventListener('click', () => {
-			const modal = new Modal({
-				type: 'tournament',
-			})
-			const form = document.createElement('form')
-			const title = document.createElement('h3')
-			title.classList.add('modal-title')
-			title.innerText = 'create tournament:'
-			const name = document.createElement('input')
-			name.type = 'text'
-			name.placeholder = 'tournament name'
-			const date = document.createElement('input')
-			date.type = 'text'
-			date.placeholder = 'tournament date'
-			const description = document.createElement('textarea')
-			description.placeholder = 'tournament description (text only)'
-			const link = document.createElement('input')
-			link.type ='text'
-			link.placeholder = 'link (optional)'
-			const submit = document.createElement('input')
-			submit.classList.add('button')
-			submit.type = 'submit'
-			submit.value = 'create'
-			const br = document.createElement('br')
-			form.appendChild( title )
-			form.appendChild( name )
-			form.appendChild( date )
-			form.appendChild( description )
-			form.appendChild( br )
-			form.appendChild( link )
-			form.appendChild( br.cloneNode() )
-			form.appendChild( submit )
-			modal.content.appendChild( form )
-			document.body.appendChild( modal.ele )
-			form.addEventListener('submit', e => {
-				e.preventDefault()
-				ui.spinner.show()
-				const n = name.value.trim()
-				const d = date.value.trim()
-				const l = description.value.trim()
-				const lnk = link.value.trim()
-				fetch_wrap( env.PUBLIC_ROOT + '/server/ajax/create.php', 'post', {
-					type: 'tournament',
-					date: d,
-					description: l,
-					name: n,
-					link: lnk,
-				})
-				.then( res => {
-					if( res.success ){
-						hal('success', 'success', 3000 )
-						setTimeout(()=>{
-							window.location.reload()
-						}, 500 )
-					}else{
-						ui.reject( res, res.msg || 'failed to create', 2000 )
-					}
-				})
-				.catch( err => {
-					ui.reject( err, err.msg || 'failed to create', 2000 )
-				})
-			})
+			tourney_modal()
 		})
 	}
 
@@ -571,6 +614,12 @@ if( confirm_code ){
 		.catch( err => {
 			ui.reject( err, err.msg || 'reset failed', 3000)
 		})
+	})
+}
+
+if( edit_tournament ){
+	edit_tournament.addEventListener('click', e => {
+		tourney_modal( location.href.substr( location.href.indexOf('?t=') + 3 ) )
 	})
 }
 
