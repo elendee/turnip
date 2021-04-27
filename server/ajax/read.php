@@ -25,6 +25,9 @@ if( isset( $post->table ) ){
 		case 'players';
 			$sql = $pdo->prepare('SELECT * FROM players WHERE 1');
 			break;
+		case 'users':
+			$sql = $pdo->prepare('SELECT * FROM users WHERE confirmed=1');
+			break;
 
 		default: break;
 	}
